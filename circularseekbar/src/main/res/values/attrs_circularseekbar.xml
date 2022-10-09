@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircularSeekBar">
+        <!-- Current value of CircularSeekBar. -->
+        <attr name="circularSeekBar_progress" format="float" />
+        <!-- Minimum value of CircularSeekBar. -->
+        <attr name="circularSeekBar_min" format="float" />
+        <!-- Maximum value of CircularSeekBar. -->
+        <attr name="circularSeekBar_max" format="float" />
+        <!-- The Angle to start drawing CircularSeekBar from. -->
+        <attr name="circularSeekBar_startAngle" format="float" />
+        <!-- The Angle through which to draw CircularSeekBar. -->
+        <attr name="circularSeekBar_sweepAngle" format="float" />
+        <!-- The thickness of the CircularSeekBar. -->
+        <attr name="circularSeekBar_barWidth" format="dimension" />
+        <!-- Background track color of CircularSeekBar. -->
+        <attr name="circularSeekBar_trackColor" format="color" />
+        <!-- Foreground progress color of CircularSeekBar. -->
+        <attr name="circularSeekBar_progressColor" format="color" />
+        <!-- Set to true if you want to interact with TapDown to change CircularSeekBar's progress. -->
+        <attr name="circularSeekBar_interactive" format="boolean" />
+    </declare-styleable>
+</resources>
