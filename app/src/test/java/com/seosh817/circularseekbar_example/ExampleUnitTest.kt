@@ -1,4 +1,4 @@
-package com.seosh817.example
+package com.seosh817.circularseekbar_example
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.seosh817.example
+package com.seosh817.circularseekbar_example
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

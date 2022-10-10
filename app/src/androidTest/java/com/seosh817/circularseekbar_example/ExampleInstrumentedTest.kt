@@ -1,4 +1,4 @@
-package com.seosh817.example
+package com.seosh817.circularseekbar_example
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
