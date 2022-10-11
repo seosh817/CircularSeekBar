@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="NotoSansCjkKrMedium">
+        <item name="android:fontFamily">@font/noto_sans_cjk_kr_medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="NotoSansCjkKrBold">
+        <item name="android:fontFamily">@font/noto_sans_cjk_kr_bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+</resources>

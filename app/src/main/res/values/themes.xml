@@ -2,15 +2,31 @@
     <!-- Base application theme. -->
     <style name="Theme.CircularSeekBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/colorSecondary</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:textViewStyle">@style/MyTextViewStyle</item>
+    </style>
+
+    <style name="MyTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/noto_sans_cjk_kr_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="MySeekBarStyle" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressBackgroundTint">@color/colorBlueSecondary</item>
+        <item name="android:progressTint">@color/colorBluePrimary</item>
+        <item name="android:thumbTint">@color/colorBluePrimary</item>
     </style>
 </resources>
