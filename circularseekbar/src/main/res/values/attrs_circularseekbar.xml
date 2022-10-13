@@ -19,5 +19,11 @@
         <attr name="circularSeekBar_progressColor" format="color" />
         <!-- Set to true if you want to interact with TapDown to change CircularSeekBar's progress. -->
         <attr name="circularSeekBar_interactive" format="boolean" />
+        <!-- Styles to use for arcs endings. -->
+        <attr name="circularSeekBar_barStrokeCap" format="enum" >
+            <enum name="butt" value="0" />
+            <enum name="round" value="1" />
+            <enum name="square" value="2" />
+        </attr>
     </declare-styleable>
 </resources>

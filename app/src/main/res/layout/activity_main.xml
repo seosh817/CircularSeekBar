@@ -9,8 +9,12 @@
 
     <com.seosh817.circularseekbar.CircularSeekBar
         android:id="@+id/circular_seek_bar"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
+        app:circularSeekBar_progress="80"
+        app:circularSeekBar_min="0"
+        app:circularSeekBar_startAngle="90"
+        app:circularSeekBar_sweepAngle="180"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -150,7 +154,7 @@
                     style="@style/MySeekBarStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="8"
+                    android:max="24"
                     android:min="0" />
             </LinearLayout>
 
