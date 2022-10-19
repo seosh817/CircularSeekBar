@@ -17,6 +17,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         with(binding) {
+            circularSeekBar.setOnProgressChangedListener { progress ->
+                tvProgressValue.text = progress.toString()
+            }
+
+            circularSeekBar.setOnAnimationEndListener { progress ->
+                // listen
+            }
+
             sbProgress.progress = circularSeekBar.progress.roundToInt()
             sbStartAngle.progress = circularSeekBar.startAngle.roundToInt()
             sbSweepAngle.progress = circularSeekBar.sweepAngle.roundToInt()

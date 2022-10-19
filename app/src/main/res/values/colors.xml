@@ -12,4 +12,5 @@
     <color name="colorSecondary">#FF393839</color>
     <color name="colorBluePrimary">#FF189BFA</color>
     <color name="colorBlueSecondary">#FF2C4960</color>
+    <color name="colorGrey">#FF9E9E9E</color>
 </resources>

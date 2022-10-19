@@ -35,6 +35,12 @@ class CircularSeekBar @JvmOverloads constructor(
     /** ValueAnimator of progress animation. */
     private var progressAnimator: ValueAnimator? = null
 
+    /** [OnAnimationEndListener] is an interface for listening to the animation is the end. */
+    private var onProgressChangedListener: OnProgressChangedListener? = null
+
+    /** [OnProgressChangedListener] is an interface for listening to the progress is changed. */
+    private var onAnimationEndListener: OnAnimationEndListener? = null
+
     /** Current value of [CircularSeekBar]. */
     var progress: Float = 0f
         set(value) {
@@ -48,6 +54,7 @@ class CircularSeekBar @JvmOverloads constructor(
                 animateProgress()
             } else {
                 progressView.progress = value
+                onProgressChangedListener?.onProgressChanged(value)
             }
         }
 
@@ -262,7 +269,9 @@ class CircularSeekBar @JvmOverloads constructor(
                 duration = 1000L
                 addUpdateListener {
                     val value = it.animatedValue as Float
-                    progressView.progress = lerp(value, progress, previousProgress)
+                    val animatedProgress = lerp(value, progress, previousProgress)
+                    progressView.progress = animatedProgress
+                    onProgressChangedListener?.onProgressChanged(animatedProgress)
                 }
                 addListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(animation: Animator?) {
@@ -270,11 +279,13 @@ class CircularSeekBar @JvmOverloads constructor(
                     }
 
                     override fun onAnimationCancel(animation: Animator?) {
+                        onAnimationEndListener?.onAnimationEnd(progress)
                         progressAnimator = null
                         isAnimating = false
                     }
 
                     override fun onAnimationEnd(animation: Animator?) {
+                        onAnimationEndListener?.onAnimationEnd(progress)
                         progressAnimator = null
                     }
 
@@ -284,6 +295,14 @@ class CircularSeekBar @JvmOverloads constructor(
             .also {
                 it.start()
             }
+    }
+
+    fun setOnProgressChangedListener(onProgressChangedListener: OnProgressChangedListener) {
+        this.onProgressChangedListener = onProgressChangedListener
+    }
+
+    fun setOnAnimationEndListener(onAnimationEndListener: OnAnimationEndListener) {
+        this.onAnimationEndListener = onAnimationEndListener
     }
 
     class Builder(context: Context) {
@@ -335,6 +354,14 @@ class CircularSeekBar @JvmOverloads constructor(
 
         fun setCircularSeekBarDuration(value: Int) = circularSeekBar.apply {
             this.animationDurationMillis = value
+        }
+
+        fun setOnProgressChangedListener(onProgressChangedListener: OnProgressChangedListener) = circularSeekBar.apply {
+            this.onProgressChangedListener = onProgressChangedListener
+        }
+
+        fun setOnAnimationEndListener(onAnimationEndListener: OnAnimationEndListener) = circularSeekBar.apply {
+            this.onAnimationEndListener = onAnimationEndListener
         }
 
         fun build(): CircularSeekBar = circularSeekBar

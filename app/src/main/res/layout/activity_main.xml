@@ -11,13 +11,45 @@
         android:id="@+id/circular_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        app:circularSeekBar_progress="80"
         app:circularSeekBar_min="0"
+        app:circularSeekBar_progress="80"
         app:circularSeekBar_startAngle="90"
         app:circularSeekBar_sweepAngle="180"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/circular_seek_bar"
+        app:layout_constraintEnd_toEndOf="@id/circular_seek_bar"
+        app:layout_constraintStart_toStartOf="@id/circular_seek_bar"
+        app:layout_constraintTop_toTopOf="@id/circular_seek_bar">
+
+        <TextView
+            android:id="@+id/tv_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Progress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_progress_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/noto_sans_cjk_kr_medium"
+            android:text="Progress"
+            android:textColor="@color/colorGrey"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_progress" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="match_parent"
