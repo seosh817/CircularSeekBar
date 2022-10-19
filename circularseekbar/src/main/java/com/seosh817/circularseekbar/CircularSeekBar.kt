@@ -7,7 +7,7 @@ import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.PointF
 import android.util.AttributeSet
-import android.util.Log
+import android.view.animation.Interpolator
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
@@ -26,15 +26,29 @@ class CircularSeekBar @JvmOverloads constructor(
     /** Previous value of [CircularSeekBar]. */
     private var previousProgress: Float = 0f
 
+    /** Center (x, y) coordinates of Arc. */
+    private var centerPosition: PointF = PointF()
+
+    /** Radius of [CircularSeekBar]. */
+    private var radiusPx: Float = 0f
+
+    /** ValueAnimator of progress animation. */
+    private var progressAnimator: ValueAnimator? = null
+
     /** Current value of [CircularSeekBar]. */
     var progress: Float = 0f
         set(value) {
+            previousProgress = progress
             field = when {
                 value >= max -> max
                 value <= min -> min
                 else -> value
             }
-            progressView.progress = value
+            if (showAnimation) {
+                animateProgress()
+            } else {
+                progressView.progress = value
+            }
         }
 
     /** Minimum value of [CircularSeekBar]. */
@@ -89,6 +103,27 @@ class CircularSeekBar @JvmOverloads constructor(
             progressView.barStrokeCap = value
         }
 
+    /** Show animation when [CircularSeekBar]'s Progress changes. */
+    var showAnimation: Boolean = true
+        set(value) {
+            field = value
+            updateCircularSeekBar()
+        }
+
+    /** Animation of [CircularSeekBar]. */
+    var circularSeekBarAnimation: CircularSeekBarAnimation = CircularSeekBarAnimation.BOUNCE
+        set(value) {
+            field = value
+            updateCircularSeekBar()
+        }
+
+    /** Duration milliseconds of the animation. */
+    var animationDurationMillis: Int = 1000
+        set(value) {
+            field = value
+            updateCircularSeekBar()
+        }
+
     /** Set to true if you want to interact with TapDown to change [CircularSeekBar]'s progress. */
     var interactive: Boolean = true
         set(value) {
@@ -97,12 +132,12 @@ class CircularSeekBar @JvmOverloads constructor(
             updateCircularSeekBar()
         }
 
-    private var centerPosition: PointF = PointF()
-    private var radiusPx: Float = 0f
+    /** Interpolator of animation. */
+    var animationInterpolator: Interpolator? = null
 
-    private var progressAnimator: ValueAnimator? = null
-
-    var isAnimating: Boolean = false
+    /** The variable that [CircularSeekBar]'s Animation is ongoing or not. */
+    var isAnimating: Boolean = true
+        private set
 
     init {
         if (attributeSet != null) {
@@ -138,6 +173,14 @@ class CircularSeekBar @JvmOverloads constructor(
                 BarStrokeCap
                     .fromValue(it)
             }
+        this.showAnimation = a.getBoolean(R.styleable.CircularSeekBar_circularSeekBar_showAnimation, showAnimation)
+        this.circularSeekBarAnimation = a
+            .getInt(R.styleable.CircularSeekBar_circularSeekBar_animation, circularSeekBarAnimation.value)
+            .let {
+                CircularSeekBarAnimation
+                    .fromValue(it)
+            }
+        this.animationDurationMillis = a.getInt(R.styleable.CircularSeekBar_circularSeekBar_animationDurationMillis, circularSeekBarAnimation.value)
 
         with(trackView) {
             this.trackColor = a.getColor(R.styleable.CircularSeekBar_circularSeekBar_trackColor, trackColor)
@@ -175,7 +218,6 @@ class CircularSeekBar @JvmOverloads constructor(
         post {
             updateTrackView()
             updateProgressView()
-            animateProgress()
         }
     }
 
@@ -208,12 +250,15 @@ class CircularSeekBar @JvmOverloads constructor(
     }
 
     private fun animateProgress() {
-        if(progressAnimator != null) {
-            progressAnimator?.cancel()
-        }
+        progressAnimator?.cancel()
         ValueAnimator
             .ofFloat(0f, 1f)
             .apply {
+                interpolator = if (this@CircularSeekBar.animationInterpolator != null) {
+                    animationInterpolator
+                } else {
+                    circularSeekBarAnimation.getInterpolator()
+                }
                 duration = 1000L
                 addUpdateListener {
                     val value = it.animatedValue as Float
@@ -225,20 +270,20 @@ class CircularSeekBar @JvmOverloads constructor(
                     }
 
                     override fun onAnimationCancel(animation: Animator?) {
-                        previousProgress = progress
+                        progressAnimator = null
                         isAnimating = false
                     }
 
                     override fun onAnimationEnd(animation: Animator?) {
-                        previousProgress = progress
+                        progressAnimator = null
                     }
 
                     override fun onAnimationRepeat(animation: Animator?) {}
                 })
             }
             .also {
-                Log.d("!!!", "valueAnimator start")
-                it.start() }
+                it.start()
+            }
     }
 
     class Builder(context: Context) {
@@ -280,10 +325,23 @@ class CircularSeekBar @JvmOverloads constructor(
             this.interactive = value
         }
 
+        fun setCircularSeekBarAnimation(value: CircularSeekBarAnimation) = circularSeekBar.apply {
+            this.circularSeekBarAnimation = value
+        }
+
+        fun setCircularSeekBarAnimationInterpolator(value: Interpolator) = circularSeekBar.apply {
+            this.animationInterpolator = value
+        }
+
+        fun setCircularSeekBarDuration(value: Int) = circularSeekBar.apply {
+            this.animationDurationMillis = value
+        }
+
         fun build(): CircularSeekBar = circularSeekBar
     }
 
     companion object {
+        val TAG: String = CircularSeekBar::class.java.simpleName
         const val START_ANGLE_OFFSET = 90
     }
 }
