@@ -269,7 +269,14 @@ class CircularSeekBar @JvmOverloads constructor(
                 duration = 1000L
                 addUpdateListener {
                     val value = it.animatedValue as Float
-                    val animatedProgress = lerp(value, progress, previousProgress)
+                    val lerpValue = lerp(value, progress, previousProgress)
+                    val animatedProgress = if (lerpValue < min) {
+                        min
+                    } else if (lerpValue > max) {
+                        max
+                    } else {
+                        lerpValue
+                    }
                     progressView.progress = animatedProgress
                     onProgressChangedListener?.onProgressChanged(animatedProgress)
                 }
@@ -368,7 +375,6 @@ class CircularSeekBar @JvmOverloads constructor(
     }
 
     companion object {
-        val TAG: String = CircularSeekBar::class.java.simpleName
         const val START_ANGLE_OFFSET = 90
     }
 }
