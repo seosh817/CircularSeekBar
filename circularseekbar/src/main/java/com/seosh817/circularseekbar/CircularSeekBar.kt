@@ -5,6 +5,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.animation.Interpolator
@@ -92,6 +93,24 @@ class CircularSeekBar @JvmOverloads constructor(
             updateCircularSeekBar()
         }
 
+    /** Background track color of [CircularSeekBar]. */
+    @ColorInt
+    var trackColor: Int = Color.LTGRAY
+        set(value) {
+            field = value
+            trackView.trackColor = value
+            updateCircularSeekBar()
+        }
+
+    /** Forground progress color of [CircularSeekBar]. */
+    @ColorInt
+    var progressColor: Int = Color.parseColor("#FF189BFA")
+        set(value) {
+            field = value
+            progressView.progressColor = value
+            updateCircularSeekBar()
+        }
+
     /** The thickness of [CircularSeekBar]. */
     @Px
     var barWidth: Float = dp2Px(8).toFloat()
@@ -172,8 +191,9 @@ class CircularSeekBar @JvmOverloads constructor(
         this.max = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_max, max)
         this.startAngle = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_startAngle, startAngle)
         this.sweepAngle = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_sweepAngle, sweepAngle)
+        this.trackColor = a.getColor(R.styleable.CircularSeekBar_circularSeekBar_trackColor, trackColor)
+        this.progressColor = a.getColor(R.styleable.CircularSeekBar_circularSeekBar_progressColor, progressColor)
         this.barWidth = a.getDimension(R.styleable.CircularSeekBar_circularSeekBar_barWidth, barWidth)
-        this.interactive = a.getBoolean(R.styleable.CircularSeekBar_circularSeekBar_interactive, interactive)
         this.barStrokeCap = a
             .getInt(R.styleable.CircularSeekBar_circularSeekBar_barStrokeCap, barStrokeCap.value)
             .let {
@@ -188,21 +208,7 @@ class CircularSeekBar @JvmOverloads constructor(
                     .fromValue(it)
             }
         this.animationDurationMillis = a.getInt(R.styleable.CircularSeekBar_circularSeekBar_animationDurationMillis, circularSeekBarAnimation.value)
-
-        with(trackView) {
-            this.trackColor = a.getColor(R.styleable.CircularSeekBar_circularSeekBar_trackColor, trackColor)
-            this.startAngle = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_startAngle, startAngle)
-            this.sweepAngle = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_sweepAngle, sweepAngle)
-            this.barWidth = a.getDimension(R.styleable.CircularSeekBar_circularSeekBar_barWidth, barWidth)
-        }
-
-        with(progressView) {
-            this.progress = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_progress, progress)
-            this.progressColor = a.getColor(R.styleable.CircularSeekBar_circularSeekBar_progressColor, progressColor)
-            this.startAngle = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_startAngle, startAngle)
-            this.sweepAngle = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_sweepAngle, sweepAngle)
-            this.barWidth = a.getDimension(R.styleable.CircularSeekBar_circularSeekBar_barWidth, barWidth)
-        }
+        this.interactive = a.getBoolean(R.styleable.CircularSeekBar_circularSeekBar_interactive, interactive)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
