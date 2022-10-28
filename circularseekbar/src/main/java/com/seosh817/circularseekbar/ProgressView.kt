@@ -4,8 +4,6 @@ import android.content.Context
 import android.graphics.*
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
-import com.seosh817.circularseekbar.MathUtils.lerp
-import com.seosh817.circularseekbar.MathUtils.lerpRatio
 
 class ProgressView(context: Context) : ProgressViewBase(context) {
 
@@ -38,8 +36,17 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
     /** Styles to use for arcs endings. */
     var barStrokeCap: BarStrokeCap by progressViewProperty(BarStrokeCap.ROUND)
 
+    /** Dash width of [CircularSeekBar]. */
+    var dashWidth: Float by progressViewProperty(0f)
+
+    /** Dash gap of [CircularSeekBar]. */
+    var dashGap: Float by progressViewProperty(0f)
+
     /** Set to true if you want to interact with TapDown to change [CircularSeekBar]'s progress. */
     var interactive: Boolean by progressViewProperty(true)
+
+    /** DashedProgressDrawable of [CircularSeekBar]. */
+    private var dashedProgressDrawable = DashedProgressDrawable(dashWidth, dashGap, min, max, progress, startAngle, sweepAngle)
 
     private var progressPaint = Paint().apply {
         color = progressColor
@@ -57,13 +64,11 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
             strokeCap = barStrokeCap.getPaintStrokeCap()
             isAntiAlias = true
         }
+        dashedProgressDrawable = DashedProgressDrawable(dashWidth, dashGap, min, max, progress, startAngle, sweepAngle)
     }
 
     override fun draw(canvas: Canvas?) {
         super.draw(canvas)
-        val startAngle: Float = startAngle + CircularSeekBar.START_ANGLE_OFFSET
-        val progressAngle: Float = lerp(lerpRatio(min, max, progress), sweepAngle)
-
         val rect = RectF(
             centerPosition.x - radiusPx,
             centerPosition.y - radiusPx,
@@ -71,11 +76,8 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
             centerPosition.y + radiusPx
         )
 
-        canvas?.drawArc(
-            rect,
-            startAngle,
-            progressAngle,
-            false, progressPaint
-        )
+        canvas?.let {
+            dashedProgressDrawable.draw(it, rect, progressPaint)
+        }
     }
 }

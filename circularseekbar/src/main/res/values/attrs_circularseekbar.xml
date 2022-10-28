@@ -11,12 +11,12 @@
         <attr name="circularSeekBar_startAngle" format="float" />
         <!-- The Angle through which to draw CircularSeekBar. -->
         <attr name="circularSeekBar_sweepAngle" format="float" />
-        <!-- The thickness of the CircularSeekBar. -->
-        <attr name="circularSeekBar_barWidth" format="dimension" />
         <!-- Background track color of CircularSeekBar. -->
         <attr name="circularSeekBar_trackColor" format="color" />
         <!-- Foreground progress color of CircularSeekBar. -->
         <attr name="circularSeekBar_progressColor" format="color" />
+        <!-- The thickness of the CircularSeekBar. -->
+        <attr name="circularSeekBar_barWidth" format="dimension" />
         <!-- Styles to use for arcs endings. -->
         <attr name="circularSeekBar_barStrokeCap" format="enum">
             <enum name="butt" value="0" />
@@ -34,6 +34,10 @@
         </attr>
         <!-- Duration milliseconds of the animation. -->
         <attr name="circularSeekBar_animationDurationMillis" format="integer" />
+        <!-- Dash width of seek bar. -->
+        <attr name="circularSeekBar_dashWidth" format="float" />
+        <!-- Dash gap of seek bar. -->
+        <attr name="circularSeekBar_dashGap" format="float" />
         <!-- Set to true if you want to interact with TapDown to change CircularSeekBar's progress. -->
         <attr name="circularSeekBar_interactive" format="boolean" />
     </declare-styleable>

@@ -2,7 +2,6 @@ package com.seosh817.circularseekbar
 
 import android.content.Context
 import android.graphics.*
-import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
 
@@ -23,7 +22,14 @@ class TrackView(
     @get:Px
     var barWidth: Float by progressViewProperty(dp2Px(8).toFloat())
 
+    /** Styles to use for arcs endings. */
     var barStrokeCap: BarStrokeCap by progressViewProperty(BarStrokeCap.ROUND)
+
+    /** Dash width of seek bar. */
+    var dashWidth: Float by progressViewProperty(0f)
+
+    /** Dash gap of seek bar. */
+    var dashGap: Float by progressViewProperty(0f)
 
     /** Background track color of [CircularSeekBar]. */
     @get:ColorInt
@@ -37,6 +43,7 @@ class TrackView(
         isAntiAlias = true
     }
 
+    private var dashedProgressDrawable = DashedTrackDrawable(DashWidth.from(dashWidth), DashGap.from(dashGap), startAngle, sweepAngle)
 
     override fun updateView() {
         trackPaint = Paint().apply {
@@ -46,6 +53,7 @@ class TrackView(
             strokeCap = barStrokeCap.getPaintStrokeCap()
             isAntiAlias = true
         }
+        dashedProgressDrawable = DashedTrackDrawable(DashWidth.from(dashWidth), DashGap.from(dashGap), startAngle, sweepAngle)
     }
 
     override fun draw(canvas: Canvas?) {
@@ -56,12 +64,8 @@ class TrackView(
             centerPosition.x + radiusPx,
             centerPosition.y + radiusPx
         )
-        canvas?.drawArc(
-            rect,
-            startAngle + CircularSeekBar.START_ANGLE_OFFSET,
-            sweepAngle,
-            false,
-            trackPaint
-        )
+        canvas?.let {
+            dashedProgressDrawable.draw(it, rect, trackPaint)
+        }
     }
 }

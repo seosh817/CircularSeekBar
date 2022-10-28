@@ -158,6 +158,24 @@ class CircularSeekBar @JvmOverloads constructor(
             updateCircularSeekBar()
         }
 
+    /** Dash width of seek bar. */
+    var dashWidth: Float = 0f
+        set(value) {
+            field = value
+            trackView.dashWidth = value
+            progressView.dashWidth = value
+            updateCircularSeekBar()
+        }
+
+    /** Dash gap of seek bar. */
+    var dashGap: Float = 0f
+        set(value) {
+            field = value
+            trackView.dashGap = value
+            progressView.dashGap = value
+            updateCircularSeekBar()
+        }
+
     /** Interpolator of animation. */
     var animationInterpolator: Interpolator? = null
 
@@ -208,6 +226,8 @@ class CircularSeekBar @JvmOverloads constructor(
                     .fromValue(it)
             }
         this.animationDurationMillis = a.getInt(R.styleable.CircularSeekBar_circularSeekBar_animationDurationMillis, circularSeekBarAnimation.value)
+        this.dashWidth = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_dashWidth, dashWidth)
+        this.dashGap = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_dashGap, dashGap)
         this.interactive = a.getBoolean(R.styleable.CircularSeekBar_circularSeekBar_interactive, interactive)
     }
 
@@ -355,6 +375,14 @@ class CircularSeekBar @JvmOverloads constructor(
 
         fun setInteractive(value: Boolean) = circularSeekBar.apply {
             this.interactive = value
+        }
+
+        fun setDashWidth(value: Float) = circularSeekBar.apply {
+            this.dashWidth = value
+        }
+
+        fun setDashGap(value: Float) = circularSeekBar.apply {
+            this.dashGap = value
         }
 
         fun setCircularSeekBarAnimation(value: CircularSeekBarAnimation) = circularSeekBar.apply {
