@@ -6,31 +6,23 @@ import android.graphics.RectF
 import kotlin.math.roundToInt
 
 class DashedTrackDrawable(
-    private val dashWidth: DashWidth,
-    private val dashGap: DashGap,
+    private val dashSum: DashSum,
     startAngle: Float,
     sweepAngle: Float
 ) : TrackDrawable(startAngle, sweepAngle) {
 
-    private val dashSum: Float
-        get() = dashWidth + dashGap
+    constructor(dashWidth: Float, dashGap: Float, startAngle: Float, sweepAngle: Float): this(DashSum.of(dashWidth, dashGap), startAngle, sweepAngle)
 
-    private fun canDashed() = dashWidth.isAvailable() && dashGap.isAvailable()
+    private fun canDashed() = dashSum.canDashed()
 
-    private fun getDashCount(): Int {
-        return if (sweepAngle >= (sweepAngle / dashSum) * dashSum + dashWidth.value) {
-            (sweepAngle / dashSum).roundToInt() + 1
-        } else {
-            (sweepAngle / dashSum).roundToInt()
-        }
-    }
+    private fun getDashCount(): Int = dashSum.getTotalDashCounts(sweepAngle)
 
     private fun drawDashes(canvas: Canvas, rect: RectF, paint: Paint, counts: Int) {
         for (i in 0 until counts) {
             canvas.drawArc(
                 rect,
                 startAngle + dashSum * i,
-                dashWidth.value,
+                dashSum.dashWidth.value,
                 false,
                 paint,
             )

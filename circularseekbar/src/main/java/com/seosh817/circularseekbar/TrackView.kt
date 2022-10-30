@@ -43,7 +43,7 @@ class TrackView(
         isAntiAlias = true
     }
 
-    private var dashedProgressDrawable = DashedTrackDrawable(DashWidth.from(dashWidth), DashGap.from(dashGap), startAngle, sweepAngle)
+    private var dashedProgressDrawable = DashedTrackDrawable(dashWidth, dashGap, startAngle, sweepAngle)
 
     override fun updateView() {
         trackPaint = Paint().apply {
@@ -53,7 +53,7 @@ class TrackView(
             strokeCap = barStrokeCap.getPaintStrokeCap()
             isAntiAlias = true
         }
-        dashedProgressDrawable = DashedTrackDrawable(DashWidth.from(dashWidth), DashGap.from(dashGap), startAngle, sweepAngle)
+        dashedProgressDrawable = DashedTrackDrawable(dashWidth, dashGap, startAngle, sweepAngle)
     }
 
     override fun draw(canvas: Canvas?) {
