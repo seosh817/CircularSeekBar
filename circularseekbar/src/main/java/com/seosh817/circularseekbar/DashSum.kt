@@ -12,7 +12,7 @@ class DashSum(
 
     fun canDashed(): Boolean = dashWidth.isAvailable() && dashGap.isAvailable()
 
-    fun getFullProgressRatio(sweepAngle: Float, min: Float, max: Float, progress: Float): Float {
+    fun getFullDashesRatio(sweepAngle: Float, min: Float, max: Float, progress: Float): Float {
         return getProgressDashCounts(sweepAngle, min, max, progress) / getTotalDashCounts(sweepAngle).toFloat()
     }
 
@@ -20,11 +20,24 @@ class DashSum(
         return (getTotalDashCounts(sweepAngle) * MathUtils.lerpRatio(min, max, progress)).toInt()
     }
 
+    fun getTotalDashWidth(sweepAngle: Float): Float {
+        return dashWidth * getTotalDashCounts(sweepAngle)
+    }
+
     fun getTotalDashCounts(sweepAngle: Float): Int {
         return if (sweepAngle >= (sweepAngle / dashSum) * dashSum + dashWidth.value) {
             (sweepAngle / dashSum).toInt() + 1
         } else {
             (sweepAngle / dashSum).toInt()
+        }
+    }
+
+    /** Calculate the relative angle of full dashes in [CircularSeekBar]. */
+    fun getFullDashesProgressAngle(sweepAngle: Float, min: Float, max: Float, progress: Float): Float {
+        return if (getTotalDashCounts(sweepAngle) >= getProgressDashCounts(sweepAngle, min, max, progress) + 1) {
+            dashSum * getProgressDashCounts(sweepAngle, min, max, progress)
+        } else {
+            dashSum * (getProgressDashCounts(sweepAngle, min, max, progress) - 1) + dashWidth.value
         }
     }
 

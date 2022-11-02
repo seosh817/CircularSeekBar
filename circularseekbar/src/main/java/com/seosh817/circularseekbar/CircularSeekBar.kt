@@ -30,9 +30,6 @@ class CircularSeekBar @JvmOverloads constructor(
     /** Center (x, y) coordinates of Arc. */
     private var centerPosition: PointF = PointF()
 
-    /** Radius of [CircularSeekBar]. */
-    private var radiusPx: Float = 0f
-
     /** ValueAnimator of progress animation. */
     private var progressAnimator: ValueAnimator? = null
 
@@ -176,6 +173,60 @@ class CircularSeekBar @JvmOverloads constructor(
             updateCircularSeekBar()
         }
 
+    /** The radius of the [CircularSeekBar] inner thumb. */
+    var innerThumbRadius: Float = 0f
+        set(value) {
+            field = value
+            progressView.innerThumbRadius = value
+            updateCircularSeekBar()
+        }
+
+    /** The stroke width of the [CircularSeekBar] inner thumb. */
+    var innerThumbStrokeWidth: Float = 0f
+        set(value) {
+            field = value
+            progressView.innerThumbStrokeWidth = value
+            updateCircularSeekBar()
+        }
+
+    /** Color of the [CircularSeekBar] inner thumb. */
+    var innerThumbColor: Int = Color.WHITE
+        set(value) {
+            field = value
+            progressView.innerThumbColor = value
+        }
+
+    /** The radius of the [CircularSeekBar] outer thumb. */
+    var outerThumbRadius: Float = 0f
+        set(value) {
+            field = value
+            progressView.outerThumbRadius = value
+            updateCircularSeekBar()
+        }
+
+    /** The stroke width of the [CircularSeekBar] outer thumb. */
+    var outerThumbStrokeWidth: Float = 0f
+        set(value) {
+            field = value
+            progressView.outerThumbStrokeWidth = value
+            updateCircularSeekBar()
+        }
+
+    /** Color of the [CircularSeekBar] outer thumb. */
+    var outerThumbColor: Int = Color.parseColor("#FF189BFA")
+        set(value) {
+            field = value
+            progressView.outerThumbColor = value
+        }
+
+    /** Radius of [CircularSeekBar]. */
+    private var radiusPx: Float = 0f
+        set(value) {
+            field = value
+            trackView.radiusPx = value
+            progressView.radiusPx = value
+        }
+
     /** Interpolator of animation. */
     var animationInterpolator: Interpolator? = null
 
@@ -244,7 +295,12 @@ class CircularSeekBar @JvmOverloads constructor(
     private fun setMeasuredProperties() {
         centerPosition.x = measuredWidth / 2f
         centerPosition.y = measuredHeight / 2f
-        radiusPx = (measuredWidth / 2f).coerceAtMost(measuredHeight / 2f) - barWidth / 2f
+        val largerThumbWidth = if (outerThumbRadius / 2f + outerThumbStrokeWidth / 2f >= innerThumbRadius / 2f + innerThumbStrokeWidth / 2f)
+            (outerThumbRadius / 2f + outerThumbStrokeWidth / 2f)
+        else
+            (innerThumbRadius / 2f + innerThumbStrokeWidth / 2f)
+        val seekBarMargin = if (largerThumbWidth >= barWidth / 2f) largerThumbWidth else barWidth / 2f
+        radiusPx = (measuredWidth / 2f).coerceAtMost(measuredHeight / 2f) - seekBarMargin
     }
 
     private fun updateCircularSeekBar() {
@@ -397,6 +453,30 @@ class CircularSeekBar @JvmOverloads constructor(
             this.animationDurationMillis = value
         }
 
+        fun setInnerThumbRadius(value: Float) = circularSeekBar.apply {
+            this.innerThumbRadius = value
+        }
+
+        fun setInnerThumbStrokeWidth(value: Float) = circularSeekBar.apply {
+            this.innerThumbStrokeWidth = value
+        }
+
+        fun setInnerThumbColor(@ColorInt value: Int) = circularSeekBar.apply {
+            this.innerThumbColor = value
+        }
+
+        fun setOuterThumbRadius(value: Float) = circularSeekBar.apply {
+            this.outerThumbRadius = value
+        }
+
+        fun setOuterThumbStrokeWidth(value: Float) = circularSeekBar.apply {
+            this.outerThumbStrokeWidth = value
+        }
+
+        fun setOuterThumbColor(@ColorInt value: Int) = circularSeekBar.apply {
+            this.outerThumbColor = value
+        }
+        
         fun setOnProgressChangedListener(onProgressChangedListener: OnProgressChangedListener) = circularSeekBar.apply {
             this.onProgressChangedListener = onProgressChangedListener
         }
@@ -406,9 +486,5 @@ class CircularSeekBar @JvmOverloads constructor(
         }
 
         fun build(): CircularSeekBar = circularSeekBar
-    }
-
-    companion object {
-        const val START_ANGLE_OFFSET = 90
     }
 }

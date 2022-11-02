@@ -3,6 +3,7 @@ package com.seosh817.circularseekbar
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
+import com.seosh817.circularseekbar.Constants.START_ANGLE_OFFSET
 import kotlin.math.roundToInt
 
 class DashedTrackDrawable(
@@ -21,7 +22,7 @@ class DashedTrackDrawable(
         for (i in 0 until counts) {
             canvas.drawArc(
                 rect,
-                startAngle + dashSum * i,
+                START_ANGLE_OFFSET + startAngle + dashSum * i,
                 dashSum.dashWidth.value,
                 false,
                 paint,

@@ -3,6 +3,7 @@ package com.seosh817.circularseekbar
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
+import com.seosh817.circularseekbar.Constants.START_ANGLE_OFFSET
 import com.seosh817.circularseekbar.MathUtils.lerpRatio
 
 class DashedProgressDrawable(
@@ -19,7 +20,7 @@ class DashedProgressDrawable(
     private fun canDashed() = dashSum.canDashed()
 
     private fun getFullProgressRatio(): Float {
-        return dashSum.getFullProgressRatio(sweepAngle, min, max, progress)
+        return dashSum.getFullDashesRatio(sweepAngle, min, max, progress)
     }
 
     private fun calculateProgressDashCounts(): Int {
@@ -34,7 +35,7 @@ class DashedProgressDrawable(
         for (i in 0 until counts) {
             canvas.drawArc(
                 rect,
-                startAngle + dashSum * i,
+                START_ANGLE_OFFSET + startAngle + dashSum * i,
                 dashSum.dashWidth.value,
                 false,
                 paint,
@@ -43,7 +44,7 @@ class DashedProgressDrawable(
 
         canvas.drawArc(
             rect,
-            startAngle + dashSum * calculateProgressDashCounts(),
+            START_ANGLE_OFFSET + startAngle + dashSum * calculateProgressDashCounts(),
             dashSum.dashWidth.value * (lerpRatio(min, max, progress) - getFullProgressRatio()) * calculateTotalDashCounts(),
             false,
             paint

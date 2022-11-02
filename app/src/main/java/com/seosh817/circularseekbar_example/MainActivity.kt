@@ -30,6 +30,9 @@ class MainActivity : AppCompatActivity() {
             sbSweepAngle.progress = circularSeekBar.sweepAngle.roundToInt()
             sbBarWidth.progress = circularSeekBar.barWidth.roundToInt()
 
+            switchRounded.isChecked = circularSeekBar.barStrokeCap == BarStrokeCap.ROUND
+            switchThumbVisible.isChecked = circularSeekBar.innerThumbRadius > 0f && circularSeekBar.outerThumbRadius > 0f
+
             sbProgress.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                     circularSeekBar.progress = progress.toFloat()
@@ -84,7 +87,19 @@ class MainActivity : AppCompatActivity() {
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             })
 
-
+            switchThumbVisible.setOnCheckedChangeListener { _, isChecked ->
+                if(isChecked) {
+                    circularSeekBar.innerThumbRadius = 20f
+                    circularSeekBar.innerThumbStrokeWidth = 12f
+                    circularSeekBar.outerThumbRadius = 20f
+                    circularSeekBar.outerThumbStrokeWidth = 40f
+                } else {
+                    circularSeekBar.innerThumbRadius = 0f
+                    circularSeekBar.innerThumbStrokeWidth = 0f
+                    circularSeekBar.outerThumbRadius = 0f
+                    circularSeekBar.outerThumbStrokeWidth = 0f
+                }
+            }
 
             switchRounded.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
