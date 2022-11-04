@@ -5,7 +5,7 @@ class DashSum(
     val dashGap: DashGap
 ) {
 
-    private val dashSum: Float
+    val dashSum: Float
         get() = dashWidth + dashGap
 
     operator fun times(count: Int) = dashSum * count
@@ -25,7 +25,7 @@ class DashSum(
     }
 
     fun getTotalDashCounts(sweepAngle: Float): Int {
-        return if (sweepAngle >= (sweepAngle / dashSum) * dashSum + dashWidth.value) {
+        return if (sweepAngle >= (sweepAngle / dashSum).toInt() * dashSum + dashWidth.value) {
             (sweepAngle / dashSum).toInt() + 1
         } else {
             (sweepAngle / dashSum).toInt()

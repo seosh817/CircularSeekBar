@@ -38,8 +38,9 @@ class ThumbDrawable(
             val fullDashesRatio = dashSum.getFullDashesRatio(sweepAngle, min, max, progress)
             val halfDashRatio = progressRatio - fullDashesRatio
 
+            val totalDashWidth = dashSum.getTotalDashWidth(sweepAngle)
+            val halfWidthAngle = halfDashRatio * totalDashWidth
             val fullDashesProgressAngle = dashSum.getFullDashesProgressAngle(sweepAngle, min, max, progress)
-            val halfWidthAngle = fullDashesProgressAngle + lerp(dashSum.dashWidth.value, halfDashRatio)
             val progressAngle = fullDashesProgressAngle + halfWidthAngle
             val progressAngleRadian = degreesToRadians(progressAngle)
 
