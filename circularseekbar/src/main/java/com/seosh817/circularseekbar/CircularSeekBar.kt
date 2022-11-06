@@ -2,17 +2,21 @@ package com.seosh817.circularseekbar
 
 import android.animation.Animator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PointF
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.animation.Interpolator
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import com.seosh817.circularseekbar.MathUtils.lerp
+import com.seosh817.circularseekbar.MathUtils.radiansToDegrees
+import kotlin.math.atan2
 
 class CircularSeekBar @JvmOverloads constructor(
     context: Context,
@@ -227,6 +231,9 @@ class CircularSeekBar @JvmOverloads constructor(
             progressView.radiusPx = value
         }
 
+    private val dashSum: DashSum
+        get() = DashSum.of(dashWidth, dashGap)
+
     /** Interpolator of animation. */
     var animationInterpolator: Interpolator? = null
 
@@ -384,6 +391,62 @@ class CircularSeekBar @JvmOverloads constructor(
             .also {
                 it.start()
             }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return if (interactive) {
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    performClick()
+                    handleTouchEvent(event)
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    handleTouchEvent(event)
+                }
+                MotionEvent.ACTION_UP -> {
+                    handleTouchEvent(event)
+                }
+            }
+            true
+        } else {
+            super.onTouchEvent(event)
+        }
+    }
+
+    private fun handleTouchEvent(event: MotionEvent) {
+        val relativeX = measuredWidth / 2f - event.x
+        val relativeY = event.y - measuredHeight / 2f
+        val angle = radiansToDegrees(atan2(relativeX, relativeY))
+        val angleToProgress = angleToProgress(angle)
+        if (angleToProgress >= 0) {
+            progress = angleToProgress
+        }
+    }
+
+    private fun angleToProgress(angle: Float): Float {
+        val relativeAngle = if (angle - startAngle >= 0) {
+            angle - startAngle
+        } else {
+            360 - startAngle + angle
+        }
+
+        if (dashSum.canDashed()) {
+            for (i in 0 until dashSum.getTotalDashCounts(sweepAngle)) {
+                val relativeDashStartAngle = dashSum * i
+                val relativeDashEndAngle = (relativeDashStartAngle + dashWidth) % 360
+
+                if (relativeAngle in relativeDashStartAngle..relativeDashEndAngle) {
+                    val totalFullDashesRatio = (dashWidth * i) / dashSum.getTotalDashWidth(sweepAngle)
+                    val halfWidthDashRatio = ((relativeAngle - dashSum * i) / dashWidth) / dashSum.getTotalDashCounts(sweepAngle)
+
+                    return lerp(totalFullDashesRatio + halfWidthDashRatio, max, min)
+                }
+            }
+        } else {
+            return (relativeAngle / sweepAngle) * 100
+        }
+        return -1f
     }
 
     fun setOnProgressChangedListener(onProgressChangedListener: OnProgressChangedListener) {
