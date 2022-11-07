@@ -7,7 +7,7 @@ import kotlin.reflect.KProperty
 internal fun <T : Any?> ProgressViewBase.progressViewProperty(defaultValue: T): ViewPropertyDelegate<T> {
     return ViewPropertyDelegate(defaultValue) {
         updateView()
-        invalidate()
+        requestLayout()
     }
 }
 
