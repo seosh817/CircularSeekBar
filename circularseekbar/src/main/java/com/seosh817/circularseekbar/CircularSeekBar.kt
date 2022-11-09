@@ -234,6 +234,20 @@ class CircularSeekBar @JvmOverloads constructor(
     private val dashSum: DashSum
         get() = DashSum.of(dashWidth, dashGap)
 
+    /** Foreground progressGradientColors of [CircularSeekBar]. */
+    var progressGradientColorsArray: IntArray = intArrayOf()
+        set(value) {
+            field = value
+            progressView.progressGradientColorsArray = value
+        }
+
+    /** Background trackGradientColors of [CircularSeekBar]. */
+    var trackGradientColorsArray: IntArray = intArrayOf()
+        set(value) {
+            field = value
+            progressView.progressGradientColorsArray = value
+        }
+
     /** Interpolator of animation. */
     var animationInterpolator: Interpolator? = null
 
@@ -287,6 +301,18 @@ class CircularSeekBar @JvmOverloads constructor(
         this.dashWidth = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_dashWidth, dashWidth)
         this.dashGap = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_dashGap, dashGap)
         this.interactive = a.getBoolean(R.styleable.CircularSeekBar_circularSeekBar_interactive, interactive)
+
+        val progressGradientColorsResourceId = a.getResourceId(R.styleable.CircularSeekBar_circularSeekBar_progressGradientColors, 0)
+        if (progressGradientColorsResourceId != 0) {
+            val colorArray = resources.getIntArray(progressGradientColorsResourceId)
+            progressGradientColorsArray = colorArray
+        }
+
+        val trackGradientColorsResourceId = a.getResourceId(R.styleable.CircularSeekBar_circularSeekBar_progressGradientColors, 0)
+        if (trackGradientColorsResourceId != 0) {
+            val colorArray = resources.getIntArray(progressGradientColorsResourceId)
+            progressGradientColorsArray = colorArray
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -539,7 +565,15 @@ class CircularSeekBar @JvmOverloads constructor(
         fun setOuterThumbColor(@ColorInt value: Int) = circularSeekBar.apply {
             this.outerThumbColor = value
         }
-        
+
+        fun setTrackGradientColors(value: IntArray) = circularSeekBar.apply {
+            this.trackGradientColorsArray = value
+        }
+
+        fun setProgressGradientColors(value: IntArray) = circularSeekBar.apply {
+            this.progressGradientColorsArray = value
+        }
+
         fun setOnProgressChangedListener(onProgressChangedListener: OnProgressChangedListener) = circularSeekBar.apply {
             this.onProgressChangedListener = onProgressChangedListener
         }

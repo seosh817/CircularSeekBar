@@ -12,7 +12,7 @@ class DashedProgressDrawable(
     max: Float,
     progress: Float,
     startAngle: Float,
-    sweepAngle: Float,
+    sweepAngle: Float
 ) : ProgressDrawable(min, max, progress, startAngle, sweepAngle) {
 
     constructor(dashWidth: Float, dashGap: Float, min: Float, max: Float, progress: Float, startAngle: Float, sweepAngle: Float) : this(DashSum.of(dashWidth, dashGap), min, max, progress, startAngle, sweepAngle)

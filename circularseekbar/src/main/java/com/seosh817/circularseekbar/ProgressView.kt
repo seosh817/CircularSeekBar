@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
+import com.seosh817.circularseekbar.Constants.START_ANGLE_OFFSET
 
 class ProgressView(context: Context) : ProgressViewBase(context) {
 
@@ -50,6 +51,7 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
     var innerThumbStrokeWidth: Float by progressViewProperty(0f)
 
     /** Color of the [CircularSeekBar] inner thumb. */
+    @get:ColorInt
     var innerThumbColor: Int by progressViewProperty(Color.WHITE)
 
     /** The radius of the [CircularSeekBar] outer thumb. */
@@ -59,7 +61,11 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
     var outerThumbStrokeWidth: Float by progressViewProperty(0f)
 
     /** The stroke width of the [CircularSeekBar] outer thumb. */
+    @get:ColorInt
     var outerThumbColor: Int by progressViewProperty(Color.parseColor("#FF189BFA"))
+
+    /** Foreground progressGradientColors of [CircularSeekBar]. */
+    var progressGradientColorsArray: IntArray by progressViewProperty(intArrayOf())
 
     /** Set to true if you want to interact with TapDown to change [CircularSeekBar]'s progress. */
     var interactive: Boolean by progressViewProperty(true)
@@ -71,11 +77,16 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
     private var thumbDrawable = ThumbDrawable(centerPosition, radiusPx, min, max, progress, startAngle, sweepAngle, dashWidth, dashGap, innerThumbRadius, outerThumbRadius)
 
     private var progressPaint = Paint().apply {
-        color = progressColor
         strokeWidth = barWidth
         style = Paint.Style.STROKE
         strokeCap = barStrokeCap.getPaintStrokeCap()
         isAntiAlias = true
+        if (progressGradientColorsArray.size > 1) {
+            val sweepGradientShader = createSweepGradient(startAngle, sweepAngle, progressGradientColorsArray)
+            shader = sweepGradientShader
+        } else {
+            color = progressColor
+        }
     }
 
     private var innerCirclePaint = Paint().apply {
@@ -96,11 +107,16 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
 
     override fun updateView() {
         progressPaint = Paint().apply {
-            color = progressColor
             strokeWidth = barWidth
             style = Paint.Style.STROKE
             strokeCap = barStrokeCap.getPaintStrokeCap()
             isAntiAlias = true
+            if (progressGradientColorsArray.size > 1) {
+                val sweepGradientShader = createSweepGradient(startAngle, sweepAngle, progressGradientColorsArray)
+                shader = sweepGradientShader
+            } else {
+                color = progressColor
+            }
         }
 
         innerCirclePaint = Paint().apply {
@@ -118,7 +134,6 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
             strokeCap = Paint.Cap.ROUND
             isAntiAlias = true
         }
-
 
         dashedProgressDrawable = DashedProgressDrawable(dashWidth, dashGap, min, max, progress, startAngle, sweepAngle)
         thumbDrawable = ThumbDrawable(centerPosition, radiusPx, min, max, progress, startAngle, sweepAngle, dashWidth, dashGap, innerThumbRadius, outerThumbRadius)

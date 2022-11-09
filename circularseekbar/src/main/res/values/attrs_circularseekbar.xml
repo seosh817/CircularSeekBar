@@ -52,5 +52,9 @@
         <attr name="circularSeekBar_outerThumbStrokeWidth" format="float" />
         <!-- Color of the CircularSeekBar outer thumb. -->
         <attr name="circularSeekBar_outerThumbColor" format="color" />
+        <!-- Foreground progressGradientColors of CircularSeekBar. -->
+        <attr name="circularSeekBar_progressGradientColors" format="dimension" />
+        <!-- Background trackGradientColors of CircularSeekBar. -->
+        <attr name="circularSeekBar_trackGradientColors" format="dimension" />
     </declare-styleable>
 </resources>

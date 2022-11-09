@@ -13,6 +13,7 @@
         android:layout_height="300dp"
         app:circularSeekBar_min="0"
         app:circularSeekBar_progress="80"
+        app:circularSeekBar_progressGradientColors="@array/rainbow"
         app:circularSeekBar_startAngle="90"
         app:circularSeekBar_sweepAngle="180"
         app:layout_constraintEnd_toEndOf="parent"

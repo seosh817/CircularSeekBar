@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
                 tvProgressValue.text = progress.toString()
             }
 
-            circularSeekBar.setOnAnimationEndListener { progress ->
+            circularSeekBar.setOnAnimationEndListener { _ ->
                 // listen
             }
 
