@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             sbSweepAngle.progress = circularSeekBar.sweepAngle.roundToInt()
             sbBarWidth.progress = circularSeekBar.barWidth.roundToInt()
 
+            switchUseGradient.isChecked = circularSeekBar.progressGradientColorsArray.isNotEmpty()
             switchRounded.isChecked = circularSeekBar.barStrokeCap == BarStrokeCap.ROUND
             switchThumbVisible.isChecked = circularSeekBar.innerThumbRadius > 0f && circularSeekBar.outerThumbRadius > 0f
 
@@ -98,6 +99,14 @@ class MainActivity : AppCompatActivity() {
                     circularSeekBar.innerThumbStrokeWidth = 0f
                     circularSeekBar.outerThumbRadius = 0f
                     circularSeekBar.outerThumbStrokeWidth = 0f
+                }
+            }
+
+            switchUseGradient.setOnCheckedChangeListener { _, isChecked ->
+                if(isChecked) {
+                    circularSeekBar.progressGradientColorsArray = resources.getIntArray(R.array.rainbow)
+                } else {
+                    circularSeekBar.progressGradientColorsArray = intArrayOf()
                 }
             }
 

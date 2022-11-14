@@ -5,15 +5,27 @@ class DashSum(
     val dashGap: DashGap
 ) {
 
-    val dashSum: Float
+    private val dashSum: Float
         get() = dashWidth + dashGap
 
     operator fun times(count: Int) = dashSum * count
 
     fun canDashed(): Boolean = dashWidth.isAvailable() && dashGap.isAvailable()
 
-    fun getFullDashesRatio(sweepAngle: Float, min: Float, max: Float, progress: Float): Float {
-        return getProgressDashCounts(sweepAngle, min, max, progress) / getTotalDashCounts(sweepAngle).toFloat()
+    fun getTotalDashCounts(sweepAngle: Float): Int {
+        if (sweepAngle <= 30.0) return 0
+        if (sweepAngle > 0 && sweepAngle <= dashWidth.value) return 1
+        return if (sweepAngle >= (sweepAngle / dashSum).toInt() * dashSum + dashWidth.value) {
+            (sweepAngle / dashSum).toInt() + 1
+        } else {
+            (sweepAngle / dashSum).toInt()
+        }
+    }
+
+    fun getFullDashesRatio(sweepAngle: Float, min: Float, max: Float, progress: Float): Float = if (getTotalDashCounts(sweepAngle) <= 0) {
+        0f
+    } else {
+        getProgressDashCounts(sweepAngle, min, max, progress) / getTotalDashCounts(sweepAngle).toFloat()
     }
 
     fun getProgressDashCounts(sweepAngle: Float, min: Float, max: Float, progress: Float): Int {
@@ -24,12 +36,8 @@ class DashSum(
         return dashWidth * getTotalDashCounts(sweepAngle)
     }
 
-    fun getTotalDashCounts(sweepAngle: Float): Int {
-        return if (sweepAngle >= (sweepAngle / dashSum).toInt() * dashSum + dashWidth.value) {
-            (sweepAngle / dashSum).toInt() + 1
-        } else {
-            (sweepAngle / dashSum).toInt()
-        }
+    fun getTotalDashSum(sweepAngle: Float): Float {
+        return dashSum * getTotalDashCounts(sweepAngle)
     }
 
     /** Calculate the relative angle of full dashes in [CircularSeekBar]. */

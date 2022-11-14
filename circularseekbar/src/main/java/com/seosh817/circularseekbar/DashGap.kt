@@ -9,6 +9,8 @@ value class DashGap private constructor(val value: Float) {
 
     operator fun plus(dashWidth: DashWidth) = value + dashWidth.value
 
+    operator fun times(count: Int) = value * count
+
     fun isAvailable(): Boolean = value > 0
 
     companion object {

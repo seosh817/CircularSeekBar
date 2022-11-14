@@ -51,6 +51,12 @@ class DashedProgressDrawable(
         )
     }
 
+    fun getPaintedSweepAngle(): Float = if (dashSum.canDashed()) {
+        dashSum.getTotalDashSum(sweepAngle)
+    } else {
+        sweepAngle
+    }
+
     override fun draw(canvas: Canvas, rect: RectF, paint: Paint) {
         if (!canDashed()) {
             super.draw(canvas, rect, paint)
