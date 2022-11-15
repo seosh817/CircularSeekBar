@@ -46,12 +46,24 @@
         <attr name="circularSeekBar_innerThumbStrokeWidth" format="float" />
         <!-- Color of the CircularSeekBar inner thumb. -->
         <attr name="circularSeekBar_innerThumbColor" format="float" />
+        <!-- Style of the CircularSeekBar of inner thumb. -->
+        <attr name="circularSeekBar_innerThumbStyle" format="enum" >
+            <enum name="fill" value="0" />
+            <enum name="stroke" value="1" />
+            <enum name="stroke_and_fill" value="2" />
+        </attr>
         <!-- The radius of the CircularSeekBar outer thumb. -->
         <attr name="circularSeekBar_outerThumbRadius" format="float" />
         <!-- The stroke width of the CircularSeekBar outer thumb. -->
         <attr name="circularSeekBar_outerThumbStrokeWidth" format="float" />
         <!-- Color of the CircularSeekBar outer thumb. -->
         <attr name="circularSeekBar_outerThumbColor" format="color" />
+        <!-- Style of the CircularSeekBar of outer thumb. -->
+        <attr name="circularSeekBar_outerThumbStyle" format="enum" >
+            <enum name="fill" value="0" />
+            <enum name="stroke" value="1" />
+            <enum name="stroke_and_fill" value="2" />
+        </attr>
         <!-- Foreground progressGradientColors of CircularSeekBar. -->
         <attr name="circularSeekBar_progressGradientColors" format="dimension" />
         <!-- Background trackGradientColors of CircularSeekBar. -->

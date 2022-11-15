@@ -54,7 +54,7 @@ class ThumbDrawable(
             thumbY = centerPosition.y + cos(startAngleRadian + progressAngleRadian) * seekBarRadius
         }
 
-        canvas.drawCircle(thumbX, thumbY, innerCircleRadius, innerPaint)
         canvas.drawCircle(thumbX, thumbY, outerCircleRadius, outerPaint)
+        canvas.drawCircle(thumbX, thumbY, innerCircleRadius, innerPaint)
     }
 }

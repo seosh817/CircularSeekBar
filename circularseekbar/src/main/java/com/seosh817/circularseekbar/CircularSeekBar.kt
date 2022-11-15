@@ -116,9 +116,9 @@ class CircularSeekBar @JvmOverloads constructor(
     @Px
     var barWidth: Float = dp2Px(8).toFloat()
         set(value) {
-            field = value
-            trackView.barWidth = value
-            progressView.barWidth = value
+            field = dp2Px(value)
+            trackView.barWidth = dp2Px(value)
+            progressView.barWidth = dp2Px(value)
             updateCircularSeekBar()
         }
 
@@ -179,48 +179,60 @@ class CircularSeekBar @JvmOverloads constructor(
 
     /** The radius of the [CircularSeekBar] inner thumb. */
     var innerThumbRadius: Float = 0f
-        set(value) {
-            field = value
-            progressView.innerThumbRadius = value
+        set(@Dp value) {
+            field = dp2Px(value)
+            progressView.innerThumbRadius = dp2Px(value)
             updateCircularSeekBar()
         }
 
     /** The stroke width of the [CircularSeekBar] inner thumb. */
     var innerThumbStrokeWidth: Float = 0f
-        set(value) {
-            field = value
-            progressView.innerThumbStrokeWidth = value
+        set(@Dp value) {
+            field = dp2Px(value)
+            progressView.innerThumbStrokeWidth = dp2Px(value)
             updateCircularSeekBar()
         }
 
     /** Color of the [CircularSeekBar] inner thumb. */
-    var innerThumbColor: Int = Color.WHITE
+    var innerThumbColor: Int = Color.parseColor("#FF189BFA")
         set(value) {
             field = value
             progressView.innerThumbColor = value
         }
 
-    /** The radius of the [CircularSeekBar] outer thumb. */
-    var outerThumbRadius: Float = 0f
+    /** Style of the [CircularSeekBar] of inner thumb. */
+    var innerThumbStyle: ThumbStyle = ThumbStyle.FILL
         set(value) {
             field = value
-            progressView.outerThumbRadius = value
-            updateCircularSeekBar()
+            progressView.innerThumbStyle = value
+        }
+
+    /** The radius of the [CircularSeekBar] outer thumb. */
+    var outerThumbRadius: Float = 0f
+        set(@Dp value) {
+            field = dp2Px(value)
+            progressView.outerThumbRadius = dp2Px(value)
         }
 
     /** The stroke width of the [CircularSeekBar] outer thumb. */
     var outerThumbStrokeWidth: Float = 0f
-        set(value) {
-            field = value
-            progressView.outerThumbStrokeWidth = value
-            updateCircularSeekBar()
+        set(@Dp value) {
+            field = dp2Px(value)
+            progressView.outerThumbStrokeWidth = dp2Px(value)
         }
 
     /** Color of the [CircularSeekBar] outer thumb. */
-    var outerThumbColor: Int = Color.parseColor("#FF189BFA")
+    var outerThumbColor: Int = Color.WHITE
         set(value) {
             field = value
             progressView.outerThumbColor = value
+        }
+
+    /** Style of the [CircularSeekBar] of outer thumb. */
+    var outerThumbStyle: ThumbStyle = ThumbStyle.FILL
+        set(value) {
+            field = value
+            progressView.outerThumbStyle = value
         }
 
     /** Radius of [CircularSeekBar]. */
@@ -301,6 +313,24 @@ class CircularSeekBar @JvmOverloads constructor(
         this.dashWidth = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_dashWidth, dashWidth)
         this.dashGap = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_dashGap, dashGap)
         this.interactive = a.getBoolean(R.styleable.CircularSeekBar_circularSeekBar_interactive, interactive)
+
+        this.innerThumbRadius = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_innerThumbRadius, innerThumbRadius)
+        this.innerThumbStrokeWidth = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_innerThumbStrokeWidth, innerThumbStrokeWidth)
+        this.innerThumbColor = a.getInt(R.styleable.CircularSeekBar_circularSeekBar_innerThumbColor, innerThumbColor)
+        this.innerThumbStyle = a
+            .getInt(R.styleable.CircularSeekBar_circularSeekBar_outerThumbStyle, innerThumbStyle.value)
+            .let {
+                ThumbStyle.fromValue(it)
+            }
+
+        this.outerThumbRadius = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_outerThumbRadius, outerThumbRadius)
+        this.outerThumbStrokeWidth = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_outerThumbStrokeWidth, outerThumbStrokeWidth)
+        this.outerThumbColor = a.getInt(R.styleable.CircularSeekBar_circularSeekBar_outerThumbColor, outerThumbColor)
+        this.outerThumbStyle = a
+            .getInt(R.styleable.CircularSeekBar_circularSeekBar_outerThumbStyle, outerThumbStyle.value)
+            .let {
+                ThumbStyle.fromValue(it)
+            }
 
         val progressGradientColorsResourceId = a.getResourceId(R.styleable.CircularSeekBar_circularSeekBar_progressGradientColors, 0)
         if (progressGradientColorsResourceId != 0) {
@@ -554,6 +584,10 @@ class CircularSeekBar @JvmOverloads constructor(
             this.innerThumbColor = value
         }
 
+        fun setInnerThumbStyle(value: ThumbStyle) = circularSeekBar.apply {
+            this.innerThumbStyle = value
+        }
+
         fun setOuterThumbRadius(value: Float) = circularSeekBar.apply {
             this.outerThumbRadius = value
         }
@@ -564,6 +598,10 @@ class CircularSeekBar @JvmOverloads constructor(
 
         fun setOuterThumbColor(@ColorInt value: Int) = circularSeekBar.apply {
             this.outerThumbColor = value
+        }
+
+        fun setOuterThumbStyle(value: ThumbStyle) = circularSeekBar.apply {
+            this.outerThumbStyle = value
         }
 
         fun setTrackGradientColors(value: IntArray) = circularSeekBar.apply {

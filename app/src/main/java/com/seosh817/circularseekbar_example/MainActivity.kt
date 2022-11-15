@@ -90,10 +90,10 @@ class MainActivity : AppCompatActivity() {
 
             switchThumbVisible.setOnCheckedChangeListener { _, isChecked ->
                 if(isChecked) {
-                    circularSeekBar.innerThumbRadius = 20f
-                    circularSeekBar.innerThumbStrokeWidth = 12f
-                    circularSeekBar.outerThumbRadius = 20f
-                    circularSeekBar.outerThumbStrokeWidth = 40f
+                    circularSeekBar.innerThumbRadius = 1.5f.dp
+                    circularSeekBar.innerThumbStrokeWidth = 1.5f.dp
+                    circularSeekBar.outerThumbRadius = 3f.dp
+                    circularSeekBar.outerThumbStrokeWidth = 3f.dp
                 } else {
                     circularSeekBar.innerThumbRadius = 0f
                     circularSeekBar.innerThumbStrokeWidth = 0f

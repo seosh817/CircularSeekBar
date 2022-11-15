@@ -52,7 +52,10 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
 
     /** Color of the [CircularSeekBar] inner thumb. */
     @get:ColorInt
-    var innerThumbColor: Int by progressViewProperty(Color.WHITE)
+    var innerThumbColor: Int by progressViewProperty(Color.parseColor("#FF189BFA"))
+
+    /** Style of the [CircularSeekBar] of inner thumb. */
+    var innerThumbStyle: ThumbStyle by progressViewProperty(ThumbStyle.FILL)
 
     /** The radius of the [CircularSeekBar] outer thumb. */
     var outerThumbRadius: Float by progressViewProperty(0f)
@@ -62,7 +65,10 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
 
     /** The stroke width of the [CircularSeekBar] outer thumb. */
     @get:ColorInt
-    var outerThumbColor: Int by progressViewProperty(Color.parseColor("#FF189BFA"))
+    var outerThumbColor: Int by progressViewProperty(Color.WHITE)
+
+    /** Style of the [CircularSeekBar] of outer thumb. */
+    var outerThumbStyle: ThumbStyle by progressViewProperty(ThumbStyle.FILL)
 
     /** Foreground progressGradientColors of [CircularSeekBar]. */
     var progressGradientColorsArray: IntArray by progressViewProperty(intArrayOf())
@@ -93,15 +99,15 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
     private var innerCirclePaint = Paint().apply {
         color = innerThumbColor
         strokeWidth = innerThumbStrokeWidth
-        style = Paint.Style.FILL
+        style = innerThumbStyle.getPaintStyle()
         strokeCap = Paint.Cap.ROUND
         isAntiAlias = true
     }
 
     private var outerCirclePaint = Paint().apply {
-        color = innerThumbColor
-        strokeWidth = innerThumbStrokeWidth
-        style = Paint.Style.FILL
+        color = outerThumbColor
+        strokeWidth = outerThumbStrokeWidth
+        style = outerThumbStyle.getPaintStyle()
         strokeCap = Paint.Cap.ROUND
         isAntiAlias = true
     }
@@ -124,15 +130,15 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
         innerCirclePaint = Paint().apply {
             color = innerThumbColor
             strokeWidth = innerThumbStrokeWidth
-            style = Paint.Style.STROKE
+            style = Paint.Style.FILL
             strokeCap = Paint.Cap.ROUND
             isAntiAlias = true
         }
 
         outerCirclePaint = Paint().apply {
-            color = innerThumbColor
-            strokeWidth = innerThumbStrokeWidth
-            style = Paint.Style.STROKE
+            color = outerThumbColor
+            strokeWidth = outerThumbStrokeWidth
+            style = Paint.Style.FILL
             strokeCap = Paint.Cap.ROUND
             isAntiAlias = true
         }
