@@ -80,7 +80,7 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
     private var dashedProgressDrawable = DashedProgressDrawable(dashWidth, dashGap, min, max, progress, startAngle, sweepAngle)
 
     /** ThumbDrawable of [CircularSeekBar]. */
-    private var thumbDrawable = ThumbDrawable(centerPosition, radiusPx, min, max, progress, startAngle, sweepAngle, dashWidth, dashGap, innerThumbRadius, outerThumbRadius)
+    private var thumbDrawable = ThumbDrawable(centerPosition, radiusPx, min, max, progress, dashedProgressDrawable.getPaintedSweepAngle(), sweepAngle, dashWidth, dashGap, innerThumbRadius, outerThumbRadius)
 
     private var progressPaint = Paint().apply {
         strokeWidth = barWidth
@@ -144,7 +144,7 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
         }
 
         dashedProgressDrawable = DashedProgressDrawable(dashWidth, dashGap, min, max, progress, startAngle, sweepAngle)
-        thumbDrawable = ThumbDrawable(centerPosition, radiusPx, min, max, progress, startAngle, sweepAngle, dashWidth, dashGap, innerThumbRadius, outerThumbRadius)
+        thumbDrawable = ThumbDrawable(centerPosition, radiusPx, min, max, progress, startAngle, dashedProgressDrawable.getPaintedSweepAngle(), dashWidth, dashGap, innerThumbRadius, outerThumbRadius)
     }
 
     override fun draw(canvas: Canvas?) {
