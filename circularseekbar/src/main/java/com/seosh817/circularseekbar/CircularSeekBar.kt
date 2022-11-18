@@ -8,6 +8,7 @@ import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PointF
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.animation.Interpolator
@@ -65,7 +66,6 @@ class CircularSeekBar @JvmOverloads constructor(
         set(value) {
             field = value
             progressView.min = value
-            updateCircularSeekBar()
         }
 
     /** Maximum value of [CircularSeekBar]. */
@@ -73,25 +73,22 @@ class CircularSeekBar @JvmOverloads constructor(
         set(value) {
             field = value
             progressView.max = value
-            updateCircularSeekBar()
         }
 
     /** The Angle to start drawing [CircularSeekBar] from. */
-    var startAngle: Float = 0f
+    var startAngle: Float = 90f
         set(value) {
             field = value
             trackView.startAngle = value
             progressView.startAngle = value
-            updateCircularSeekBar()
         }
 
     /** The Angle through which to draw [CircularSeekBar] bar. */
-    var sweepAngle: Float = 0f
+    var sweepAngle: Float = 180f
         set(value) {
             field = value
             trackView.sweepAngle = value
             progressView.sweepAngle = value
-            updateCircularSeekBar()
         }
 
     /** Background track color of [CircularSeekBar]. */
@@ -100,21 +97,19 @@ class CircularSeekBar @JvmOverloads constructor(
         set(value) {
             field = value
             trackView.trackColor = value
-            updateCircularSeekBar()
         }
 
-    /** Forground progress color of [CircularSeekBar]. */
+    /** Foreground progress color of [CircularSeekBar]. */
     @ColorInt
     var progressColor: Int = Color.parseColor("#FF189BFA")
         set(value) {
             field = value
             progressView.progressColor = value
-            updateCircularSeekBar()
         }
 
     /** The thickness of [CircularSeekBar]. */
     @Px
-    var barWidth: Float = dp2Px(8).toFloat()
+    var barWidth: Float = dp2Px(6).toFloat()
         set(value) {
             field = dp2Px(value)
             trackView.barWidth = dp2Px(value)
@@ -181,6 +176,7 @@ class CircularSeekBar @JvmOverloads constructor(
     var innerThumbRadius: Float = 0f
         set(@Dp value) {
             field = dp2Px(value)
+            trackView.innerThumbRadius = dp2Px(value)
             progressView.innerThumbRadius = dp2Px(value)
             updateCircularSeekBar()
         }
@@ -189,6 +185,7 @@ class CircularSeekBar @JvmOverloads constructor(
     var innerThumbStrokeWidth: Float = 0f
         set(@Dp value) {
             field = dp2Px(value)
+            trackView.innerThumbStrokeWidth = dp2Px(value)
             progressView.innerThumbStrokeWidth = dp2Px(value)
             updateCircularSeekBar()
         }
@@ -211,14 +208,18 @@ class CircularSeekBar @JvmOverloads constructor(
     var outerThumbRadius: Float = 0f
         set(@Dp value) {
             field = dp2Px(value)
+            trackView.outerThumbRadius = dp2Px(value)
             progressView.outerThumbRadius = dp2Px(value)
+            updateCircularSeekBar()
         }
 
     /** The stroke width of the [CircularSeekBar] outer thumb. */
     var outerThumbStrokeWidth: Float = 0f
         set(@Dp value) {
             field = dp2Px(value)
+            trackView.outerThumbStrokeWidth = dp2Px(value)
             progressView.outerThumbStrokeWidth = dp2Px(value)
+            updateCircularSeekBar()
         }
 
     /** Color of the [CircularSeekBar] outer thumb. */
@@ -257,7 +258,7 @@ class CircularSeekBar @JvmOverloads constructor(
     var trackGradientColorsArray: IntArray = intArrayOf()
         set(value) {
             field = value
-            progressView.progressGradientColorsArray = value
+            trackView.trackGradientColorsArray = value
         }
 
     /** Interpolator of animation. */
@@ -266,7 +267,7 @@ class CircularSeekBar @JvmOverloads constructor(
     /** The variable that [CircularSeekBar]'s Animation is ongoing or not. */
     var isAnimating: Boolean = true
         private set
-
+    
     init {
         if (attributeSet != null) {
             getAttrs(attributeSet, defStyle)
@@ -345,14 +346,15 @@ class CircularSeekBar @JvmOverloads constructor(
         }
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        addView(trackView)
+        addView(progressView)
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         setMeasuredProperties()
-    }
-
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        updateProgressView()
     }
 
     private fun setMeasuredProperties() {
@@ -380,8 +382,6 @@ class CircularSeekBar @JvmOverloads constructor(
         }
         with(trackView) {
             layoutParams = params
-            this.centerPosition = this@CircularSeekBar.centerPosition
-            this.radiusPx = this@CircularSeekBar.radiusPx
         }
         removeView(trackView)
         addView(trackView)

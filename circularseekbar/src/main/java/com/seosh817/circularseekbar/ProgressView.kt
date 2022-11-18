@@ -4,13 +4,12 @@ import android.content.Context
 import android.graphics.*
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
-import com.seosh817.circularseekbar.Constants.START_ANGLE_OFFSET
+import kotlin.math.min
 
 class ProgressView(context: Context) : ProgressViewBase(context) {
 
-    override var centerPosition: PointF by progressViewProperty(PointF())
-
-    override var radiusPx: Float by progressViewProperty(0f)
+    override var centerPosition: PointF by progressViewProperty(PointF(width / 2f, height / 2f))
+    override var radiusPx: Float by progressViewProperty(min(width / 2f, height / 2f))
 
     /** Current value of [CircularSeekBar]. */
     var progress: Float by progressViewProperty(0f)

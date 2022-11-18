@@ -58,10 +58,10 @@ class DashedProgressDrawable(
     }
 
     override fun draw(canvas: Canvas, rect: RectF, paint: Paint) {
-        if (!canDashed()) {
-            super.draw(canvas, rect, paint)
-        } else {
+        if (canDashed()) {
             drawDashes(canvas, rect, paint, calculateProgressDashCounts())
+        } else {
+            super.draw(canvas, rect, paint)
         }
     }
 }

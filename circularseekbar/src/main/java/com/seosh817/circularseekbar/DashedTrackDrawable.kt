@@ -4,7 +4,6 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import com.seosh817.circularseekbar.Constants.START_ANGLE_OFFSET
-import kotlin.math.roundToInt
 
 class DashedTrackDrawable(
     private val dashSum: DashSum,
@@ -30,11 +29,17 @@ class DashedTrackDrawable(
         }
     }
 
+    fun getPaintedSweepAngle(): Float = if (dashSum.canDashed()) {
+        dashSum.getTotalDashSum(sweepAngle)
+    } else {
+        sweepAngle
+    }
+
     override fun draw(canvas: Canvas, rect: RectF, paint: Paint) {
-        if (!canDashed()) {
-            super.draw(canvas, rect, paint)
-        } else {
+        if (canDashed()) {
             drawDashes(canvas, rect, paint, getDashCount())
+        } else {
+            super.draw(canvas, rect, paint)
         }
     }
 }
