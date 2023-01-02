@@ -16,6 +16,11 @@
         app:circularSeekBar_progressGradientColors="@array/rainbow"
         app:circularSeekBar_startAngle="90"
         app:circularSeekBar_sweepAngle="180"
+        app:circularSeekBar_barWidth="3dp"
+        app:circularSeekBar_innerThumbRadius="3dp"
+        app:circularSeekBar_innerThumbStrokeWidth="3dp"
+        app:circularSeekBar_outerThumbRadius="5dp"
+        app:circularSeekBar_outerThumbStrokeWidth="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -41,9 +41,9 @@
         <!-- Set to true if you want to interact with TapDown to change CircularSeekBar's progress. -->
         <attr name="circularSeekBar_interactive" format="boolean" />
         <!-- The radius of the CircularSeekBar inner thumb. -->
-        <attr name="circularSeekBar_innerThumbRadius" format="float" />
+        <attr name="circularSeekBar_innerThumbRadius" format="dimension" />
         <!-- The stroke width of the CircularSeekBar inner thumb. -->
-        <attr name="circularSeekBar_innerThumbStrokeWidth" format="float" />
+        <attr name="circularSeekBar_innerThumbStrokeWidth" format="dimension" />
         <!-- Color of the CircularSeekBar inner thumb. -->
         <attr name="circularSeekBar_innerThumbColor" format="float" />
         <!-- Style of the CircularSeekBar of inner thumb. -->
@@ -53,9 +53,9 @@
             <enum name="stroke_and_fill" value="2" />
         </attr>
         <!-- The radius of the CircularSeekBar outer thumb. -->
-        <attr name="circularSeekBar_outerThumbRadius" format="float" />
+        <attr name="circularSeekBar_outerThumbRadius" format="dimension" />
         <!-- The stroke width of the CircularSeekBar outer thumb. -->
-        <attr name="circularSeekBar_outerThumbStrokeWidth" format="float" />
+        <attr name="circularSeekBar_outerThumbStrokeWidth" format="dimension" />
         <!-- Color of the CircularSeekBar outer thumb. -->
         <attr name="circularSeekBar_outerThumbColor" format="color" />
         <!-- Style of the CircularSeekBar of outer thumb. -->

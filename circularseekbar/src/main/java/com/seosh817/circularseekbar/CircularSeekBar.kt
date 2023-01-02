@@ -315,8 +315,8 @@ class CircularSeekBar @JvmOverloads constructor(
         this.dashGap = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_dashGap, dashGap)
         this.interactive = a.getBoolean(R.styleable.CircularSeekBar_circularSeekBar_interactive, interactive)
 
-        this.innerThumbRadius = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_innerThumbRadius, innerThumbRadius)
-        this.innerThumbStrokeWidth = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_innerThumbStrokeWidth, innerThumbStrokeWidth)
+        this.innerThumbRadius = a.getDimension(R.styleable.CircularSeekBar_circularSeekBar_innerThumbRadius, innerThumbRadius)
+        this.innerThumbStrokeWidth = a.getDimension(R.styleable.CircularSeekBar_circularSeekBar_innerThumbStrokeWidth, innerThumbStrokeWidth)
         this.innerThumbColor = a.getInt(R.styleable.CircularSeekBar_circularSeekBar_innerThumbColor, innerThumbColor)
         this.innerThumbStyle = a
             .getInt(R.styleable.CircularSeekBar_circularSeekBar_outerThumbStyle, innerThumbStyle.value)
@@ -324,8 +324,8 @@ class CircularSeekBar @JvmOverloads constructor(
                 ThumbStyle.fromValue(it)
             }
 
-        this.outerThumbRadius = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_outerThumbRadius, outerThumbRadius)
-        this.outerThumbStrokeWidth = a.getFloat(R.styleable.CircularSeekBar_circularSeekBar_outerThumbStrokeWidth, outerThumbStrokeWidth)
+        this.outerThumbRadius = a.getDimension(R.styleable.CircularSeekBar_circularSeekBar_outerThumbRadius, outerThumbRadius)
+        this.outerThumbStrokeWidth = a.getDimension(R.styleable.CircularSeekBar_circularSeekBar_outerThumbStrokeWidth, outerThumbStrokeWidth)
         this.outerThumbColor = a.getInt(R.styleable.CircularSeekBar_circularSeekBar_outerThumbColor, outerThumbColor)
         this.outerThumbStyle = a
             .getInt(R.styleable.CircularSeekBar_circularSeekBar_outerThumbStyle, outerThumbStyle.value)

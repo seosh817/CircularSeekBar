@@ -88,20 +88,6 @@ class MainActivity : AppCompatActivity() {
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             })
 
-            switchThumbVisible.setOnCheckedChangeListener { _, isChecked ->
-                if(isChecked) {
-                    circularSeekBar.innerThumbRadius = 1.5f.dp
-                    circularSeekBar.innerThumbStrokeWidth = 1.5f.dp
-                    circularSeekBar.outerThumbRadius = 3f.dp
-                    circularSeekBar.outerThumbStrokeWidth = 3f.dp
-                } else {
-                    circularSeekBar.innerThumbRadius = 0f
-                    circularSeekBar.innerThumbStrokeWidth = 0f
-                    circularSeekBar.outerThumbRadius = 0f
-                    circularSeekBar.outerThumbStrokeWidth = 0f
-                }
-            }
-
             switchUseGradient.setOnCheckedChangeListener { _, isChecked ->
                 if(isChecked) {
                     circularSeekBar.progressGradientColorsArray = resources.getIntArray(R.array.rainbow)
@@ -115,6 +101,24 @@ class MainActivity : AppCompatActivity() {
                     circularSeekBar.barStrokeCap = BarStrokeCap.ROUND
                 } else {
                     circularSeekBar.barStrokeCap = BarStrokeCap.SQUARE
+                }
+            }
+
+            switchAnimation.setOnCheckedChangeListener { _, isChecked ->
+                circularSeekBar.showAnimation = isChecked
+            }
+
+            switchThumbVisible.setOnCheckedChangeListener { _, isChecked ->
+                if(isChecked) {
+                    circularSeekBar.innerThumbRadius = 3f.dp
+                    circularSeekBar.innerThumbStrokeWidth = 3f.dp
+                    circularSeekBar.outerThumbRadius = 5f.dp
+                    circularSeekBar.outerThumbStrokeWidth = 5f.dp
+                } else {
+                    circularSeekBar.innerThumbRadius = 0f
+                    circularSeekBar.innerThumbStrokeWidth = 0f
+                    circularSeekBar.outerThumbRadius = 0f
+                    circularSeekBar.outerThumbStrokeWidth = 0f
                 }
             }
 
