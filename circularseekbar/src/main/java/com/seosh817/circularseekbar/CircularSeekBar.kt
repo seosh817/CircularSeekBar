@@ -76,6 +76,7 @@ class CircularSeekBar @JvmOverloads constructor(
         }
 
     /** The Angle to start drawing [CircularSeekBar] from. */
+    /** startAngle starts at 6 o'clock */
     var startAngle: Float = 90f
         set(value) {
             field = value
