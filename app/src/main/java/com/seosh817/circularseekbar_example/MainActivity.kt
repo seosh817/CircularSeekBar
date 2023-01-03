@@ -32,7 +32,9 @@ class MainActivity : AppCompatActivity() {
 
             switchUseGradient.isChecked = circularSeekBar.progressGradientColorsArray.isNotEmpty()
             switchRounded.isChecked = circularSeekBar.barStrokeCap == BarStrokeCap.ROUND
+            switchAnimation.isChecked = circularSeekBar.showAnimation
             switchThumbVisible.isChecked = circularSeekBar.innerThumbRadius > 0f && circularSeekBar.outerThumbRadius > 0f
+            switchInteractive.isChecked = circularSeekBar.interactive
 
             sbProgress.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -63,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
             sbBarWidth.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    circularSeekBar.barWidth = progress.toFloat()
+                    circularSeekBar.barWidth = progress.toFloat().dp
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
