@@ -129,7 +129,7 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
         innerCirclePaint = Paint().apply {
             color = innerThumbColor
             strokeWidth = innerThumbStrokeWidth
-            style = Paint.Style.FILL
+            style = Paint.Style.FILL_AND_STROKE
             strokeCap = Paint.Cap.ROUND
             isAntiAlias = true
         }
@@ -137,7 +137,7 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
         outerCirclePaint = Paint().apply {
             color = outerThumbColor
             strokeWidth = outerThumbStrokeWidth
-            style = Paint.Style.FILL
+            style = Paint.Style.FILL_AND_STROKE
             strokeCap = Paint.Cap.ROUND
             isAntiAlias = true
         }
