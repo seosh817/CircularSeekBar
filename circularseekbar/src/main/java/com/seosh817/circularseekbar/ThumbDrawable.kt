@@ -54,7 +54,7 @@ class ThumbDrawable(
             thumbY = centerPosition.y + cos(startAngleRadian + progressAngleRadian) * seekBarRadius
         }
 
-        if ((dashSum.canDashed() && sweepAngle > 0) || !dashSum.canDashed()) {
+        if (sweepAngle > 0) {
             canvas.drawCircle(thumbX, thumbY, outerCircleRadius, outerPaint)
             canvas.drawCircle(thumbX, thumbY, innerCircleRadius, innerPaint)
         }
