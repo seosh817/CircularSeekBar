@@ -5,10 +5,11 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PointF
 import android.graphics.drawable.Drawable
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.animation.Interpolator
@@ -265,8 +266,12 @@ class CircularSeekBar @JvmOverloads constructor(
     /** Interpolator of animation. */
     var animationInterpolator: Interpolator? = null
 
+    /** The variable that [CircularSeekBar]'s touching is ongoing or not. */
+    var isTouching: Boolean = false
+        private set
+
     /** The variable that [CircularSeekBar]'s Animation is ongoing or not. */
-    var isAnimating: Boolean = true
+    var isAnimating: Boolean = false
         private set
     
     init {
@@ -477,7 +482,15 @@ class CircularSeekBar @JvmOverloads constructor(
         val angle = radiansToDegrees(atan2(relativeX, relativeY))
         val angleToProgress = angleToProgress(angle)
         if (angleToProgress >= 0) {
-            progress = angleToProgress
+            if (showAnimation && !isTouching) {
+                isTouching = true
+                progress = angleToProgress
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isTouching = false
+                }, 20)
+            } else if (!showAnimation) {
+                progress = angleToProgress
+            }
         }
     }
 
