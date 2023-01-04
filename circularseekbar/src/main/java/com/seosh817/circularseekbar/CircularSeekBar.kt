@@ -113,9 +113,9 @@ class CircularSeekBar @JvmOverloads constructor(
     @Px
     var barWidth: Float = dp2Px(6).toFloat()
         set(value) {
-            field = dp2Px(value)
-            trackView.barWidth = dp2Px(value)
-            progressView.barWidth = dp2Px(value)
+            field = value
+            trackView.barWidth = value
+            progressView.barWidth = value
             updateCircularSeekBar()
         }
 
@@ -177,18 +177,18 @@ class CircularSeekBar @JvmOverloads constructor(
     /** The radius of the [CircularSeekBar] inner thumb. */
     var innerThumbRadius: Float = 0f
         set(@Dp value) {
-            field = dp2Px(value)
-            trackView.innerThumbRadius = dp2Px(value)
-            progressView.innerThumbRadius = dp2Px(value)
+            field = value
+            trackView.innerThumbRadius = value
+            progressView.innerThumbRadius = value
             updateCircularSeekBar()
         }
 
     /** The stroke width of the [CircularSeekBar] inner thumb. */
     var innerThumbStrokeWidth: Float = 0f
         set(@Dp value) {
-            field = dp2Px(value)
-            trackView.innerThumbStrokeWidth = dp2Px(value)
-            progressView.innerThumbStrokeWidth = dp2Px(value)
+            field = value
+            trackView.innerThumbStrokeWidth = value
+            progressView.innerThumbStrokeWidth = value
             updateCircularSeekBar()
         }
 
@@ -209,18 +209,18 @@ class CircularSeekBar @JvmOverloads constructor(
     /** The radius of the [CircularSeekBar] outer thumb. */
     var outerThumbRadius: Float = 0f
         set(@Dp value) {
-            field = dp2Px(value)
-            trackView.outerThumbRadius = dp2Px(value)
-            progressView.outerThumbRadius = dp2Px(value)
+            field = value
+            trackView.outerThumbRadius = value
+            progressView.outerThumbRadius = value
             updateCircularSeekBar()
         }
 
     /** The stroke width of the [CircularSeekBar] outer thumb. */
     var outerThumbStrokeWidth: Float = 0f
         set(@Dp value) {
-            field = dp2Px(value)
-            trackView.outerThumbStrokeWidth = dp2Px(value)
-            progressView.outerThumbStrokeWidth = dp2Px(value)
+            field = value
+            trackView.outerThumbStrokeWidth = value
+            progressView.outerThumbStrokeWidth = value
             updateCircularSeekBar()
         }
 
