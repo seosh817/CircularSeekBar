@@ -18,17 +18,35 @@ class MainActivity : AppCompatActivity() {
 
         with(binding) {
             circularSeekBar.setOnProgressChangedListener { progress ->
-                tvProgressValue.text = progress.toString()
+                tvProgressValue.text = progress
+                    .roundToInt()
+                    .toString()
             }
 
             circularSeekBar.setOnAnimationEndListener { _ ->
                 // listen
             }
 
+            tvStartAngle.text = circularSeekBar.startAngle
+                .roundToInt()
+                .toString()
+            tvSweepAngle.text = circularSeekBar.sweepAngle
+                .roundToInt()
+                .toString()
+            tvBarWidth.text = circularSeekBar.barWidth.dp
+                .roundToInt()
+                .toString()
+            tvDashWidth.text = circularSeekBar.dashWidth
+                .roundToInt()
+                .toString()
+            tvDashGap.text = circularSeekBar.dashGap
+                .roundToInt()
+                .toString()
+
             sbProgress.progress = circularSeekBar.progress.roundToInt()
             sbStartAngle.progress = circularSeekBar.startAngle.roundToInt()
             sbSweepAngle.progress = circularSeekBar.sweepAngle.roundToInt()
-            sbBarWidth.progress = circularSeekBar.barWidth.roundToInt()
+            sbBarWidth.progress = circularSeekBar.barWidth.dp.roundToInt()
 
             switchUseGradient.isChecked = circularSeekBar.progressGradientColorsArray.isNotEmpty()
             switchRounded.isChecked = circularSeekBar.barStrokeCap == BarStrokeCap.ROUND
@@ -48,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             sbStartAngle.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                     circularSeekBar.startAngle = progress.toFloat()
+                    tvStartAngle.text = progress.toString()
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -57,6 +76,7 @@ class MainActivity : AppCompatActivity() {
             sbSweepAngle.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                     circularSeekBar.sweepAngle = progress.toFloat()
+                    tvSweepAngle.text = progress.toString()
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -65,7 +85,10 @@ class MainActivity : AppCompatActivity() {
 
             sbBarWidth.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    circularSeekBar.barWidth = progress.toFloat().dp
+                    circularSeekBar.barWidth = progress.toFloat().px
+                    tvBarWidth.text = circularSeekBar.barWidth.dp
+                        .roundToInt()
+                        .toString()
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -74,7 +97,8 @@ class MainActivity : AppCompatActivity() {
 
             sbDashWidth.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    circularSeekBar.dashWidth = progress.toFloat()
+                    circularSeekBar.dashWidth = (progress.toFloat() * (1 / 10f)).px
+                    tvDashWidth.text = String.format("%.1f", circularSeekBar.dashWidth)
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -83,7 +107,8 @@ class MainActivity : AppCompatActivity() {
 
             sbDashGap.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    circularSeekBar.dashGap = progress.toFloat()
+                    circularSeekBar.dashGap = (progress.toFloat() * (1 / 10f)).px
+                    tvDashGap.text = String.format("%.1f", circularSeekBar.dashGap)
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -91,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             })
 
             switchUseGradient.setOnCheckedChangeListener { _, isChecked ->
-                if(isChecked) {
+                if (isChecked) {
                     circularSeekBar.progressGradientColorsArray = resources.getIntArray(R.array.rainbow)
                 } else {
                     circularSeekBar.progressGradientColorsArray = intArrayOf()
@@ -102,7 +127,7 @@ class MainActivity : AppCompatActivity() {
                 if (isChecked) {
                     circularSeekBar.barStrokeCap = BarStrokeCap.ROUND
                 } else {
-                    circularSeekBar.barStrokeCap = BarStrokeCap.SQUARE
+                    circularSeekBar.barStrokeCap = BarStrokeCap.BUTT
                 }
             }
 
@@ -111,11 +136,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             switchThumbVisible.setOnCheckedChangeListener { _, isChecked ->
-                if(isChecked) {
-                    circularSeekBar.innerThumbRadius = 3f.dp
-                    circularSeekBar.innerThumbStrokeWidth = 3f.dp
-                    circularSeekBar.outerThumbRadius = 5f.dp
-                    circularSeekBar.outerThumbStrokeWidth = 5f.dp
+                if (isChecked) {
+                    circularSeekBar.innerThumbRadius = 5f.px
+                    circularSeekBar.innerThumbStrokeWidth = 3f.px
+                    circularSeekBar.outerThumbRadius = 5f.px
+                    circularSeekBar.outerThumbStrokeWidth = 10f.px
                 } else {
                     circularSeekBar.innerThumbRadius = 0f
                     circularSeekBar.innerThumbStrokeWidth = 0f

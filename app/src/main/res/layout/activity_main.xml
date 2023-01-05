@@ -11,16 +11,16 @@
         android:id="@+id/circular_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        app:circularSeekBar_barWidth="8dp"
+        app:circularSeekBar_innerThumbRadius="5dp"
+        app:circularSeekBar_innerThumbStrokeWidth="3dp"
         app:circularSeekBar_min="0"
+        app:circularSeekBar_outerThumbRadius="5dp"
+        app:circularSeekBar_outerThumbStrokeWidth="10dp"
         app:circularSeekBar_progress="80"
         app:circularSeekBar_progressGradientColors="@array/rainbow"
-        app:circularSeekBar_startAngle="90"
-        app:circularSeekBar_sweepAngle="180"
-        app:circularSeekBar_barWidth="3dp"
-        app:circularSeekBar_innerThumbRadius="3dp"
-        app:circularSeekBar_innerThumbStrokeWidth="3dp"
-        app:circularSeekBar_outerThumbRadius="5dp"
-        app:circularSeekBar_outerThumbStrokeWidth="5dp"
+        app:circularSeekBar_startAngle="45"
+        app:circularSeekBar_sweepAngle="270"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="@id/circular_seek_bar">
 
         <TextView
-            android:id="@+id/tv_progress"
+            android:id="@+id/tv_progress_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Progress"
@@ -44,17 +44,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_progress_value"
+            android:id="@+id/tv_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/noto_sans_cjk_kr_medium"
-            android:text="Progress"
+            android:text="progress"
             android:textColor="@color/colorGrey"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_progress" />
+            app:layout_constraintTop_toBottomOf="@id/tv_progress_value" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -106,10 +106,16 @@
                 <SeekBar
                     android:id="@+id/sb_startAngle"
                     style="@style/MySeekBarStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:max="360"
                     android:min="0" />
+
+                <TextView
+                    android:id="@+id/tv_startAngle"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -127,10 +133,16 @@
                 <SeekBar
                     android:id="@+id/sb_sweepAngle"
                     style="@style/MySeekBarStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:max="360"
                     android:min="0" />
+
+                <TextView
+                    android:id="@+id/tv_sweepAngle"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -148,10 +160,16 @@
                 <SeekBar
                     android:id="@+id/sb_dashWidth"
                     style="@style/MySeekBarStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:max="40"
+                    android:layout_weight="1"
+                    android:max="400"
                     android:min="0" />
+
+                <TextView
+                    android:id="@+id/tv_dashWidth"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -169,10 +187,16 @@
                 <SeekBar
                     android:id="@+id/sb_dashGap"
                     style="@style/MySeekBarStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:max="10"
+                    android:layout_weight="1"
+                    android:max="100"
                     android:min="0" />
+
+                <TextView
+                    android:id="@+id/tv_dashGap"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -190,10 +214,16 @@
                 <SeekBar
                     android:id="@+id/sb_barWidth"
                     style="@style/MySeekBarStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:max="3"
-                    android:min="0" />
+                    android:layout_weight="1"
+                    android:max="10"
+                    android:min="1" />
+
+                <TextView
+                    android:id="@+id/tv_barWidth"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
