@@ -14,10 +14,14 @@ abstract class ProgressViewBase(context: Context): View(context) {
 
     abstract fun updateView()
 
-    fun createSweepGradient(startAngle: Float, sweepAngle: Float, gradientArray: IntArray): SweepGradient {
+    fun createSweepGradient(startAngle: Float, sweepAngle: Float, gradientArray: IntArray, rounded: Boolean): SweepGradient {
         val shader = SweepGradient(centerPosition.x, centerPosition.y, gradientArray, getGradientPositions(sweepAngle, gradientArray))
         val gradientRotationMatrix = Matrix()
-        gradientRotationMatrix.preRotate(START_ANGLE_OFFSET + startAngle - 5, centerPosition.x, centerPosition.y)
+        if (rounded) {
+            gradientRotationMatrix.preRotate(START_ANGLE_OFFSET + startAngle - 2, centerPosition.x, centerPosition.y)
+        } else {
+            gradientRotationMatrix.preRotate(START_ANGLE_OFFSET + startAngle, centerPosition.x, centerPosition.y)
+        }
         shader.setLocalMatrix(gradientRotationMatrix)
         return shader
     }
