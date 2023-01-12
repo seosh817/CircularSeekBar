@@ -362,10 +362,28 @@ class CircularSeekBar @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        setMeasuredProperties()
+        measureViewDimension(widthMeasureSpec, heightMeasureSpec)
     }
 
-    private fun setMeasuredProperties() {
+    private fun measureViewDimension(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val requestedWidth = MeasureSpec.getSize(widthMeasureSpec)
+        val widthMeasureSpecMode = MeasureSpec.getMode(widthMeasureSpec)
+
+        val requestedHeight = MeasureSpec.getSize(heightMeasureSpec)
+        val heightMeasureSpecMode = MeasureSpec.getMode(heightMeasureSpec)
+
+        val measuredWidth = when (widthMeasureSpecMode) {
+            MeasureSpec.EXACTLY, MeasureSpec.UNSPECIFIED -> requestedWidth
+            else -> requestedWidth.coerceAtLeast(requestedHeight)
+        }
+
+        val measuredHeight = when (heightMeasureSpecMode) {
+            MeasureSpec.EXACTLY, MeasureSpec.UNSPECIFIED -> requestedHeight
+            else -> requestedWidth.coerceAtLeast(requestedHeight)
+        }
+
+        setMeasuredDimension(measuredWidth, measuredHeight)
+
         centerPosition.x = measuredWidth / 2f
         centerPosition.y = measuredHeight / 2f
         val largerThumbWidth = if (outerThumbRadius / 2f + outerThumbStrokeWidth / 2f >= innerThumbRadius / 2f + innerThumbStrokeWidth / 2f)
