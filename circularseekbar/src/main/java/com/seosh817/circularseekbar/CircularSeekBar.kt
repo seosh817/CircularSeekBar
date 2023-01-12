@@ -8,8 +8,10 @@ import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.PointF
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.animation.Interpolator
@@ -527,6 +529,69 @@ class CircularSeekBar @JvmOverloads constructor(
         this.onAnimationEndListener = onAnimationEndListener
     }
 
+    override fun onSaveInstanceState(): Parcelable {
+        val superState = super.onSaveInstanceState()
+        return Bundle().apply {
+            putParcelable(KEY_PARENT, superState)
+            putFloat(KEY_PROGRESS, progress)
+            putFloat(KEY_MAX, max)
+            putFloat(KEY_MIN, min)
+            putFloat(KEY_START_ANGLE, startAngle)
+            putFloat(KEY_SWEEP_ANGLE, sweepAngle)
+            putInt(KEY_TRACK_COLOR, trackColor)
+            putInt(KEY_PROGRESS_COLOR, progressColor)
+            putFloat(KEY_BAR_WIDTH, barWidth)
+            putInt(KEY_BAR_STROKE_CAP, barStrokeCap.value)
+            putBoolean(KEY_SHOW_ANIMATION, showAnimation)
+            putInt(KEY_CIRCULAR_SEEK_BAR_ANIMATION, circularSeekBarAnimation.value)
+            putInt(KEY_ANIMATION_DURATION_MILLIS, animationDurationMillis)
+            putBoolean(KEY_INTERACTIVE, interactive)
+            putFloat(KEY_DASH_WIDTH, dashWidth)
+            putFloat(KEY_DASH_GAP, dashGap)
+            putFloat(KEY_INNER_THUMB_RADIUS, innerThumbRadius)
+            putFloat(KEY_INNER_THUMB_STROKE_WIDTH, innerThumbStrokeWidth)
+            putInt(KEY_INNER_THUMB_COLOR, innerThumbColor)
+            putInt(KEY_INNER_THUMB_STYLE, innerThumbStyle.value)
+            putFloat(KEY_OUTER_THUMB_RADIUS, outerThumbRadius)
+            putFloat(KEY_OUTER_THUMB_STROKE_WIDTH, outerThumbStrokeWidth)
+            putInt(KEY_OUTER_THUMB_COLOR, outerThumbColor)
+            putInt(KEY_OUTER_THUMB_STYLE, outerThumbStyle.value)
+            putIntArray(KEY_PROGRESS_GRADIENT_COLORS_ARRAY, progressGradientColorsArray)
+            putIntArray(KEY_TRACK_GRADIENT_COLORS_ARRAY, trackGradientColorsArray)
+        }
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val savedState = state as Bundle
+        val superState = savedState.getParcelable<Parcelable>(KEY_PARENT)
+        super.onRestoreInstanceState(superState)
+        progress = savedState.getFloat(KEY_PROGRESS, progress)
+        max = savedState.getFloat(KEY_MAX, max)
+        min = savedState.getFloat(KEY_MIN, min)
+        startAngle = savedState.getFloat(KEY_START_ANGLE, startAngle)
+        sweepAngle = savedState.getFloat(KEY_SWEEP_ANGLE, sweepAngle)
+        trackColor = savedState.getInt(KEY_TRACK_COLOR, trackColor)
+        progressColor = savedState.getInt(KEY_PROGRESS_COLOR, progressColor)
+        barWidth = savedState.getFloat(KEY_BAR_WIDTH, barWidth)
+        barStrokeCap = BarStrokeCap.fromValue(savedState.getInt(KEY_BAR_STROKE_CAP, barStrokeCap.value))
+        showAnimation = savedState.getBoolean(KEY_SHOW_ANIMATION, showAnimation)
+        circularSeekBarAnimation = CircularSeekBarAnimation.fromValue(savedState.getInt(KEY_CIRCULAR_SEEK_BAR_ANIMATION, circularSeekBarAnimation.value))
+        animationDurationMillis = savedState.getInt(KEY_ANIMATION_DURATION_MILLIS, animationDurationMillis)
+        interactive = savedState.getBoolean(KEY_INTERACTIVE, interactive)
+        dashWidth = savedState.getFloat(KEY_DASH_WIDTH, dashWidth)
+        dashGap = savedState.getFloat(KEY_DASH_GAP, dashGap)
+        innerThumbRadius = savedState.getFloat(KEY_INNER_THUMB_RADIUS, innerThumbRadius)
+        innerThumbStrokeWidth = savedState.getFloat(KEY_INNER_THUMB_STROKE_WIDTH, innerThumbStrokeWidth)
+        innerThumbColor = savedState.getInt(KEY_INNER_THUMB_COLOR, innerThumbColor)
+        innerThumbStyle = ThumbStyle.fromValue(savedState.getInt(KEY_INNER_THUMB_STYLE, innerThumbStyle.value))
+        outerThumbRadius = savedState.getFloat(KEY_OUTER_THUMB_RADIUS, outerThumbRadius)
+        outerThumbStrokeWidth = savedState.getFloat(KEY_OUTER_THUMB_STROKE_WIDTH, outerThumbStrokeWidth)
+        outerThumbColor = savedState.getInt(KEY_OUTER_THUMB_COLOR, outerThumbColor)
+        outerThumbStyle = ThumbStyle.fromValue(savedState.getInt(KEY_OUTER_THUMB_STYLE, outerThumbStyle.value))
+        progressGradientColorsArray = savedState.getIntArray(KEY_PROGRESS_GRADIENT_COLORS_ARRAY) ?: intArrayOf()
+        trackGradientColorsArray = savedState.getIntArray(KEY_TRACK_GRADIENT_COLORS_ARRAY) ?: intArrayOf()
+    }
+
     class Builder(context: Context) {
         private val circularSeekBar = CircularSeekBar(context)
 
@@ -635,5 +700,34 @@ class CircularSeekBar @JvmOverloads constructor(
         }
 
         fun build(): CircularSeekBar = circularSeekBar
+    }
+
+    companion object {
+        private const val KEY_PARENT = "parent"
+        private const val KEY_PROGRESS = "progress"
+        private const val KEY_MAX = "max"
+        private const val KEY_MIN = "min"
+        private const val KEY_START_ANGLE = "startAngle"
+        private const val KEY_SWEEP_ANGLE = "sweepAngle"
+        private const val KEY_TRACK_COLOR = "trackColor"
+        private const val KEY_PROGRESS_COLOR = "progressColor"
+        private const val KEY_BAR_WIDTH = "barWidth"
+        private const val KEY_BAR_STROKE_CAP = "barStrokeCap"
+        private const val KEY_SHOW_ANIMATION = "showAnimation"
+        private const val KEY_CIRCULAR_SEEK_BAR_ANIMATION = "circularSeekBarAnimation"
+        private const val KEY_ANIMATION_DURATION_MILLIS = "animationDurationMillis"
+        private const val KEY_INTERACTIVE = "interactvie"
+        private const val KEY_DASH_WIDTH = "dashWidth"
+        private const val KEY_DASH_GAP = "dashGap"
+        private const val KEY_INNER_THUMB_RADIUS = "innerThumbRadius"
+        private const val KEY_INNER_THUMB_STROKE_WIDTH = "innerThumbStrokeWidth"
+        private const val KEY_INNER_THUMB_COLOR = "innerThumbColor"
+        private const val KEY_INNER_THUMB_STYLE = "innerThumbStyle"
+        private const val KEY_OUTER_THUMB_RADIUS = "outerThumbRadius"
+        private const val KEY_OUTER_THUMB_STROKE_WIDTH = "outerThumbStrokeWidth"
+        private const val KEY_OUTER_THUMB_COLOR = "outerThumbColor"
+        private const val KEY_OUTER_THUMB_STYLE = "outerThumbStyle"
+        private const val KEY_PROGRESS_GRADIENT_COLORS_ARRAY = "progressGradientColorsArray"
+        private const val KEY_TRACK_GRADIENT_COLORS_ARRAY = "trackGradientColorsArray"
     }
 }
