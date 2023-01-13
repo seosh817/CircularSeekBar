@@ -18,8 +18,12 @@ import android.view.animation.Interpolator
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
-import com.seosh817.circularseekbar.MathUtils.lerp
-import com.seosh817.circularseekbar.MathUtils.radiansToDegrees
+import com.seosh817.circularseekbar.utils.MathUtils.lerp
+import com.seosh817.circularseekbar.utils.MathUtils.radiansToDegrees
+import com.seosh817.circularseekbar.annotations.Dp
+import com.seosh817.circularseekbar.callbacks.OnAnimationEndListener
+import com.seosh817.circularseekbar.callbacks.OnProgressChangedListener
+import com.seosh817.circularseekbar.extensions.dp2Px
 import kotlin.math.atan2
 
 class CircularSeekBar @JvmOverloads constructor(

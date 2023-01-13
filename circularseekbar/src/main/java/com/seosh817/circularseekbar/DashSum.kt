@@ -1,5 +1,7 @@
 package com.seosh817.circularseekbar
 
+import com.seosh817.circularseekbar.utils.MathUtils
+
 class DashSum(
     val dashWidth: DashWidth,
     val dashGap: DashGap

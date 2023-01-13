@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
+import com.seosh817.circularseekbar.extensions.dp2Px
 import kotlin.math.min
 
 class TrackView(context: Context) : ProgressViewBase(context) {

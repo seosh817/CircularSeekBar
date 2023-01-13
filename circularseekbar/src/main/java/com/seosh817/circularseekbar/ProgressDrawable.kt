@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import com.seosh817.circularseekbar.Constants.START_ANGLE_OFFSET
+import com.seosh817.circularseekbar.utils.MathUtils
 
 open class ProgressDrawable(
     protected val min: Float,
