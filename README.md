@@ -7,8 +7,8 @@
       alt="Platform" />
   </a>
 
-  <a href="https://maven-badges.herokuapp.com/maven-central/com.seosh817/circular_seek_bar_1.0.0">
-    <img src="https://img.shields.io/maven-central/v/com.seosh817/circular_seek_bar_1.0.0.svg"
+  <a href="https://central.sonatype.dev/artifact/com.seosh817/circularseekbar/1.0.0">
+    <img src="https://img.shields.io/maven-central/v/com.seosh817/circularseekbar.svg"
       alt="Maven Central" />
   </a>
 
