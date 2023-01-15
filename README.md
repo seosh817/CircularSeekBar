@@ -23,7 +23,7 @@
   </a>
 </p><br>
 
-<p align="center">CircularSeekBar is a circular progress bar/seek bar android library that supports animations, dashes and gradients.</p>
+<p align="center">🌈 CircularSeekBar is a circular progress bar/seek bar android library that supports animations, dashes and gradients.</p>
 
 # Getting Started
 - [Youtube Demo Video](#youtube-demo-video)
