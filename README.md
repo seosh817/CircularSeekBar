@@ -278,7 +278,7 @@ class MainActivity : AppCompatActivity() {
 
 ### 5. Animations
 
-<img src="https://github.com/seosh817/CircularSeekBar/blob/hotfix/1.0.3/images/animations_bounceOut.gif?raw=true" width="300"/>
+<img src="https://github.com/seosh817/CircularSeekBar/blob/release/1.0.0/images/animations_bounce.gif?raw=true" width="300"/>
 
 ### Xml code:
 ```xml
