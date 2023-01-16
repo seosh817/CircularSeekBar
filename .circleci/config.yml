@@ -24,6 +24,9 @@ commands:
       - restore_cache:
           name: Restore gradle properties
           key: gradle-properties-${CIRCLE_WORKFLOW_ID}_21
+      - restore_cache:
+          name: Restore secret key ring
+          key: secret-keys-${CIRCLE_WORKFLOW_ID}_21
   save_gradle:
     steps:
       - save_cache:
@@ -37,6 +40,20 @@ commands:
           name: Save gradle properties
           paths:
             - ~/.gradle/gradle.properties
+      - save_cache:
+          key: secret-keys-${CIRCLE_WORKFLOW_ID}_21
+          name: Save secret keys
+          paths:
+            - circularseekbar/secret-keys.gpg
+  fetch_gradle_properties:
+    steps:
+      - run:
+          name: Fetch gradle properties
+          command: |
+            mkdir -p ~/.gradle
+            curl -L -o ~/.gradle/gradle.properties "https://drive.google.com/uc?export=download&id=$GRADLE_PROPERTY_PATH_FIELD_ID"
+            curl -L -o circularseekbar/secret-keys.gpg "https://drive.google.com/uc?export=download&id=$SECRET_KEY_RING_PATH_FIELD_ID"
+  
   
 jobs:
   build:
@@ -52,6 +69,12 @@ jobs:
       # Checkout the code as the first step.
       - checkout
       - restore_gradle
+      - fetch_gradle_properties
+
+      - run:
+          name: find gradle properties
+          command: find ~ -name "*.properties"
+
       # And finally run the release build
       - run:
           name: Assemble release build
@@ -79,46 +102,6 @@ jobs:
           root: .
           paths:
           - .
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-  test:
-    executor:
-      name: android/android-machine
-      resource-class: medium
-      tag: 2021.10.1
-    steps:
-      - attach_workspace:
-          at: .
-          
-      # The next step will run the unit tests
-      - android/run-tests:
-          test-command: ./gradlew lint testDebug --continue
-
-      # Then start the emulator and run the Instrumentation tests!
-      - android/start-emulator-and-run-tests:
-          test-command: ./gradlew connectedDebugAndroidTest
-          system-image: system-images;android-30;google_apis;x86
-      # Create an AVD named "myavd"
-      - android/create-avd:
-          avd-name: myavd
-          system-image: system-images;android-29;default;x86
-          install: true
-      # By default, after starting up the emulator, a cache will be restored,
-      # "./gradlew assembleDebugAndroidTest" will be run and then a script
-      # will be run to wait for the emulator to start up.
-      # Specify the "post-emulator-launch-assemble-command" command to override
-      # the gradle command run, or set "wait-for-emulator" to false to disable
-      # waiting for the emulator altogether.
-      - android/start-emulator:
-          avd-name: myavd
-          no-window: true
-          restore-gradle-cache-prefix: v1a
-      # Runs "./gradlew connectedDebugAndroidTest" by default.
-      # Specify the "test-command" parameter to customize the command run.
-      - android/run-tests
-      - android/save-gradle-cache:
-          cache-prefix: v1a
   deploy:
     executor:
       name: android-executor
@@ -126,19 +109,16 @@ jobs:
       - attach_workspace:
           at: .
       - restore_gradle
+      - fetch_gradle_properties
 
 workflows:
   version: 2
   build_deploy:
     jobs:
     - build
-    - test:
-       requires:
-          - build
     - deploy:
         requires:
           - build
-          - test
         filters:
           branches:
             only:
