@@ -445,7 +445,7 @@ class CircularSeekBar @JvmOverloads constructor(
                 } else {
                     circularSeekBarAnimation.getInterpolator()
                 }
-                duration = 1000L
+                duration = animationDurationMillis.toLong()
                 addUpdateListener {
                     val value = it.animatedValue as Float
                     val lerpValue = lerp(value, progress, previousProgress)
