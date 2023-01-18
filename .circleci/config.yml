@@ -110,6 +110,9 @@ jobs:
           at: .
       - restore_gradle
       - fetch_gradle_properties
+      - run:
+          name: Upload to Maven Central
+          command: ./gradlew publish
 
 workflows:
   version: 2
