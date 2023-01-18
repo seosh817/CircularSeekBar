@@ -218,7 +218,7 @@ class CircularSeekBar @JvmOverloads constructor(
             progressView.innerThumbColor = value
         }
 
-    /** Style of the [CircularSeekBar] of inner thumb. */
+    /** Style of the [CircularSeekBar] inner thumb. */
     var innerThumbStyle: ThumbStyle = ThumbStyle.FILL_AND_STROKE
         set(value) {
             field = value
@@ -252,7 +252,7 @@ class CircularSeekBar @JvmOverloads constructor(
             progressView.outerThumbColor = value
         }
 
-    /** Style of the [CircularSeekBar] of outer thumb. */
+    /** Style of the [CircularSeekBar] outer thumb. */
     var outerThumbStyle: ThumbStyle = ThumbStyle.FILL_AND_STROKE
         set(value) {
             field = value
