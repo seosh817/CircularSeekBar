@@ -384,12 +384,12 @@ You can customize the CircularSeekBar using the following properties:
 
 |Property|Type|Default|Description|
 |:---|:---|:---|:---|
-| progress | `Float` | 0 | Current value of seek bar. |
-| min | `Float` | 0 | Minimum value of seek bar.|
-| max | `Float` | 100 | Maximum value of seek bar.|
-| startAngle | `Float` | 0 | The Angle to start drawing this seek bar from.|
-| sweepAngle | `Float` | 360 | The Angle through which to draw the seek bar.|
-| barWidth | `double` | 6 | The thickness of the seek bar.|
+| progress | `Float` | 0f | Current value of seek bar. |
+| min | `Float` | 0f | Minimum value of seek bar.|
+| max | `Float` | 100f | Maximum value of seek bar.|
+| startAngle | `Float` | 0f | The Angle to start drawing this seek bar from.|
+| sweepAngle | `Float` | 360f | The Angle through which to draw the seek bar.|
+| barWidth | `Float` | 6f | The thickness of the seek bar.|
 | trackColor | `Color` | Color.LTGRAY | Background track color of seek bar.|
 | trackGradientColors | `IntArray` | intArrayOf() | Background track gradient colors of seek bar.<br>If [trackGradientColors] is not empty, [trackColor] is not applied.|
 | progressColor | `Color` | Color.parseColor("#FF189BFA") | Foreground progress color of seek bar.|
@@ -398,41 +398,33 @@ You can customize the CircularSeekBar using the following properties:
 | showAnimation | `Boolean` | true | Active seek bar animation.|
 | circularSeekBarAnimation | `CircularSeekBarAnimation` | CircularSeekBarAnimation.BOUNCE | Animation of [CircularSeekBar].|
 | animDurationMillis | `Int` | 1000 | Animation duration milliseconds.|
-| innerThumbRadius | `Float` | 0 | The radius of the [CircularSeekBar] inner thumb.|
-| innerThumbStrokeWidth | `Float` | 0 | The stroke width of the [CircularSeekBar] inner thumb.|
+| innerThumbRadius | `Float` | 0f | The radius of the [CircularSeekBar] inner thumb.|
+| innerThumbStrokeWidth | `Float` | 0f | The stroke width of the [CircularSeekBar] inner thumb.|
 | innerThumbColor | `Color` | Color.parseColor("#FF189BFA") | Color of the [CircularSeekBar] inner thumb.|
-| innerThumbStyle | `ThumbStyle` | ThumbStyle.FILL_AND_STROKE | Style of the [CircularSeekBar] of inner thumb.|
-| outerThumbRadius | `Float` | 0 | The radius of the [CircularSeekBar] outer thumb.|
-| outerThumbStrokeWidth | `Float` | 0 | The stroke width of the [CircularSeekBar] outer thumb.|
+| innerThumbStyle | `ThumbStyle` | ThumbStyle.FILL_AND_STROKE | Style of the [CircularSeekBar] inner thumb.|
+| outerThumbRadius | `Float` | 0f | The radius of the [CircularSeekBar] outer thumb.|
+| outerThumbStrokeWidth | `Float` | 0f | The stroke width of the [CircularSeekBar] outer thumb.|
 | outerThumbColor | `Color` | Color.WHITE | Color of the [CircularSeekBar] outer thumb.|
-| outerThumbStyle | `ThumbStyle` | ThumbStyle.FILL_AND_STROKE | Style of the [CircularSeekBar] of outer thumb.|
-| dashWidth | `Float` | 0 | Dash width of [CircularSeekBar].|
-| dashGap | `Float` | 0 |  Dash gap of [CircularSeekBar].|
+| outerThumbStyle | `ThumbStyle` | ThumbStyle.FILL_AND_STROKE | Style of the [CircularSeekBar] outer thumb.|
+| dashWidth | `Float` | 0f | Dash width of [CircularSeekBar].|
+| dashGap | `Float` | 0f |  Dash gap of [CircularSeekBar].|
 | interactive | `Boolean` | true | Set to true if you want to interact with TapDown to change the seekbar's progress.|
 
 # License
 ```
-MIT License
+Copyright 2023 seosh817 (Seunghwan Seo)
 
-Copyright (c) 2022 seosh817
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+    http://www.apache.org/licenses/LICENSE-2.0
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
 
 # Contribution
