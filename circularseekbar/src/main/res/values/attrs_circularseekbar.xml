@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircularSeekBar">
+        <!-- Current value of CircularSeekBar. -->
+        <attr name="circularSeekBar_progress" format="float" />
+        <!-- Minimum value of CircularSeekBar. -->
+        <attr name="circularSeekBar_min" format="float" />
+        <!-- Maximum value of CircularSeekBar. -->
+        <attr name="circularSeekBar_max" format="float" />
+        <!-- The Angle to start drawing CircularSeekBar from. -->
+        <attr name="circularSeekBar_startAngle" format="float" />
+        <!-- The Angle through which to draw CircularSeekBar. -->
+        <attr name="circularSeekBar_sweepAngle" format="float" />
+        <!-- Background track color of CircularSeekBar. -->
+        <attr name="circularSeekBar_trackColor" format="color" />
+        <!-- Foreground progress color of CircularSeekBar. -->
+        <attr name="circularSeekBar_progressColor" format="color" />
+        <!-- The thickness of the CircularSeekBar. -->
+        <attr name="circularSeekBar_barWidth" format="dimension" />
+        <!-- Styles to use for arcs endings. -->
+        <attr name="circularSeekBar_barStrokeCap" format="enum">
+            <enum name="butt" value="0" />
+            <enum name="round" value="1" />
+            <enum name="square" value="2" />
+        </attr>
+        <!-- Show animation when CircularSeekBar's Progress changes. -->
+        <attr name="circularSeekBar_showAnimation" format="boolean" />
+        <!-- Animation Style of CircularSeekBar. -->
+        <attr name="circularSeekBar_animation" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bounce" value="1" />
+            <enum name="decelerate" value="2" />
+            <enum name="accelerate_decelerate" value="3" />
+        </attr>
+        <!-- Duration milliseconds of the animation. -->
+        <attr name="circularSeekBar_animationDurationMillis" format="integer" />
+        <!-- Dash width of seek bar. -->
+        <attr name="circularSeekBar_dashWidth" format="float" />
+        <!-- Dash gap of seek bar. -->
+        <attr name="circularSeekBar_dashGap" format="float" />
+        <!-- Set to true if you want to interact with TapDown to change CircularSeekBar's progress. -->
+        <attr name="circularSeekBar_interactive" format="boolean" />
+        <!-- The radius of the CircularSeekBar inner thumb. -->
+        <attr name="circularSeekBar_innerThumbRadius" format="dimension" />
+        <!-- The stroke width of the CircularSeekBar inner thumb. -->
+        <attr name="circularSeekBar_innerThumbStrokeWidth" format="dimension" />
+        <!-- Color of the CircularSeekBar inner thumb. -->
+        <attr name="circularSeekBar_innerThumbColor" format="float" />
+        <!-- Style of the CircularSeekBar of inner thumb. -->
+        <attr name="circularSeekBar_innerThumbStyle" format="enum" >
+            <enum name="fill" value="0" />
+            <enum name="stroke" value="1" />
+            <enum name="stroke_and_fill" value="2" />
+        </attr>
+        <!-- The radius of the CircularSeekBar outer thumb. -->
+        <attr name="circularSeekBar_outerThumbRadius" format="dimension" />
+        <!-- The stroke width of the CircularSeekBar outer thumb. -->
+        <attr name="circularSeekBar_outerThumbStrokeWidth" format="dimension" />
+        <!-- Color of the CircularSeekBar outer thumb. -->
+        <attr name="circularSeekBar_outerThumbColor" format="color" />
+        <!-- Style of the CircularSeekBar of outer thumb. -->
+        <attr name="circularSeekBar_outerThumbStyle" format="enum" >
+            <enum name="fill" value="0" />
+            <enum name="stroke" value="1" />
+            <enum name="stroke_and_fill" value="2" />
+        </attr>
+        <!-- Foreground progressGradientColors of CircularSeekBar. -->
+        <attr name="circularSeekBar_progressGradientColors" format="dimension" />
+        <!-- Background trackGradientColors of CircularSeekBar. -->
+        <attr name="circularSeekBar_trackGradientColors" format="dimension" />
+    </declare-styleable>
+</resources>

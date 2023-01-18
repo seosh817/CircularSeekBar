@@ -1,6 +1,84 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+    id 'signing'
+}
+
+def versionStr = '1.0.0'
+
+def getCurrentGitBranch() {
+    def gitBranch = "Unknown branch"
+    try {
+        def workingDir = new File("${project.projectDir}")
+        def result = 'git rev-parse --abbrev-ref HEAD'.execute(null, workingDir)
+        result.waitFor()
+        if (result.exitValue() == 0) {
+            gitBranch = result.text.trim()
+        }
+    } catch (e) {
+    }
+    return gitBranch
+}
+
+def getUserName() {
+    return System.properties['user.name']
+}
+
+group = "com.seosh817"
+archivesBaseName = "circularseekbar"
+if (getCurrentGitBranch().equals('master')) {
+    version = versionStr
+} else {
+    version = "${versionStr}-${getUserName()}-SNAPSHOT"
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = archivesBaseName
+            pom {
+                name = 'CircularSeekBar'
+                description = 'Android CircularSeekBar Library'
+                url = 'https://github.com/seosh817/CircularSeekBar'
+                artifact("$buildDir/outputs/aar/circularseekbar-release.aar")
+                licenses {
+                    license {
+                        name = 'The Apache Software License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'seosh817'
+                        name = 'Seunghwan Seo'
+                        email = 'seosh817@naver.com'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:https://github.com/seosh817/CircularSeekBar.git'
+                    developerConnection = 'scm:git:https://github.com/seosh817/CircularSeekBar.git'
+                    url = 'https://github.com/seosh817/CircularSeekBar'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = version.endsWith('SNAPSHOT') ? NEXUS_SNAPSHOT_REPOSITORY_URL : NEXUS_REPOSITORY_URL
+            credentials {
+                username = findProperty('nexusUsername')
+                password = findProperty('nexusPassword')
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }
 
 android {

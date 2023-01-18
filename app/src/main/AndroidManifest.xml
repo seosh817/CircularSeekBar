@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.seosh817.example">
+    package="com.seosh817.circularseekbar_example">
 
     <application
         android:allowBackup="true"
