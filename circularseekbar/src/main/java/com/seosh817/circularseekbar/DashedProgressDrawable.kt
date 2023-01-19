@@ -4,7 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import com.seosh817.circularseekbar.Constants.START_ANGLE_OFFSET
-import com.seosh817.circularseekbar.MathUtils.lerpRatio
+import com.seosh817.circularseekbar.utils.MathUtils.lerpRatio
 
 class DashedProgressDrawable(
     private val dashSum: DashSum,

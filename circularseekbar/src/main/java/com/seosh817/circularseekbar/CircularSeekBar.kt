@@ -18,8 +18,12 @@ import android.view.animation.Interpolator
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
-import com.seosh817.circularseekbar.MathUtils.lerp
-import com.seosh817.circularseekbar.MathUtils.radiansToDegrees
+import com.seosh817.circularseekbar.utils.MathUtils.lerp
+import com.seosh817.circularseekbar.utils.MathUtils.radiansToDegrees
+import com.seosh817.circularseekbar.annotations.Dp
+import com.seosh817.circularseekbar.callbacks.OnAnimationEndListener
+import com.seosh817.circularseekbar.callbacks.OnProgressChangedListener
+import com.seosh817.circularseekbar.extensions.dp2Px
 import kotlin.math.atan2
 
 class CircularSeekBar @JvmOverloads constructor(
@@ -32,11 +36,22 @@ class CircularSeekBar @JvmOverloads constructor(
 
     private val progressView: ProgressView = ProgressView(context)
 
+    private val dashSum: DashSum
+        get() = DashSum.of(dashWidth, dashGap)
+
     /** Previous value of [CircularSeekBar]. */
     private var previousProgress: Float = 0f
 
     /** Center (x, y) coordinates of Arc. */
     private var centerPosition: PointF = PointF()
+
+    /** Radius of [CircularSeekBar]. */
+    private var radiusPx: Float = 0f
+        set(value) {
+            field = value
+            trackView.radiusPx = value
+            progressView.radiusPx = value
+        }
 
     /** ValueAnimator of progress animation. */
     private var progressAnimator: ValueAnimator? = null
@@ -114,7 +129,7 @@ class CircularSeekBar @JvmOverloads constructor(
     /** The thickness of [CircularSeekBar]. */
     @Px
     var barWidth: Float = dp2Px(6).toFloat()
-        set(value) {
+        set(@Dp value) {
             field = value
             trackView.barWidth = value
             progressView.barWidth = value
@@ -177,6 +192,7 @@ class CircularSeekBar @JvmOverloads constructor(
         }
 
     /** The radius of the [CircularSeekBar] inner thumb. */
+    @Px
     var innerThumbRadius: Float = 0f
         set(@Dp value) {
             field = value
@@ -186,6 +202,7 @@ class CircularSeekBar @JvmOverloads constructor(
         }
 
     /** The stroke width of the [CircularSeekBar] inner thumb. */
+    @Px
     var innerThumbStrokeWidth: Float = 0f
         set(@Dp value) {
             field = value
@@ -209,6 +226,7 @@ class CircularSeekBar @JvmOverloads constructor(
         }
 
     /** The radius of the [CircularSeekBar] outer thumb. */
+    @Px
     var outerThumbRadius: Float = 0f
         set(@Dp value) {
             field = value
@@ -218,6 +236,7 @@ class CircularSeekBar @JvmOverloads constructor(
         }
 
     /** The stroke width of the [CircularSeekBar] outer thumb. */
+    @Px
     var outerThumbStrokeWidth: Float = 0f
         set(@Dp value) {
             field = value
@@ -239,17 +258,6 @@ class CircularSeekBar @JvmOverloads constructor(
             field = value
             progressView.outerThumbStyle = value
         }
-
-    /** Radius of [CircularSeekBar]. */
-    private var radiusPx: Float = 0f
-        set(value) {
-            field = value
-            trackView.radiusPx = value
-            progressView.radiusPx = value
-        }
-
-    private val dashSum: DashSum
-        get() = DashSum.of(dashWidth, dashGap)
 
     /** Foreground progressGradientColors of [CircularSeekBar]. */
     var progressGradientColorsArray: IntArray = intArrayOf()

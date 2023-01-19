@@ -3,9 +3,9 @@ package com.seosh817.circularseekbar
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
-import com.seosh817.circularseekbar.MathUtils.degreesToRadians
-import com.seosh817.circularseekbar.MathUtils.lerp
-import com.seosh817.circularseekbar.MathUtils.lerpRatio
+import com.seosh817.circularseekbar.utils.MathUtils.degreesToRadians
+import com.seosh817.circularseekbar.utils.MathUtils.lerp
+import com.seosh817.circularseekbar.utils.MathUtils.lerpRatio
 import kotlin.math.cos
 import kotlin.math.sin
 

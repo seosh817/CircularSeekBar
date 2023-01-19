@@ -1,4 +1,4 @@
-package com.seosh817.circularseekbar
+package com.seosh817.circularseekbar.annotations
 
 import androidx.annotation.Dimension
 
