@@ -417,8 +417,6 @@ class CircularSeekBar @JvmOverloads constructor(
         with(trackView) {
             layoutParams = params
         }
-        removeView(trackView)
-        addView(trackView)
     }
 
     private fun updateProgressView() {
@@ -431,8 +429,6 @@ class CircularSeekBar @JvmOverloads constructor(
             this.centerPosition = this@CircularSeekBar.centerPosition
             this.radiusPx = this@CircularSeekBar.radiusPx
         }
-        removeView(progressView)
-        addView(progressView)
     }
 
     private fun animateProgress() {
@@ -553,6 +549,12 @@ class CircularSeekBar @JvmOverloads constructor(
 
     fun setOnAnimationEndListener(onAnimationEndListener: OnAnimationEndListener) {
         this.onAnimationEndListener = onAnimationEndListener
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        removeView(trackView)
+        removeView(progressView)
     }
 
     override fun onSaveInstanceState(): Parcelable {
