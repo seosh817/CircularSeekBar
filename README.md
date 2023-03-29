@@ -374,7 +374,7 @@ Then, add dependency to your module's build.gradle file.
 
 ```
 dependencies {
-    implementation "com.seosh817:circularseekbar:1.0.0"
+    implementation "com.seosh817:circularseekbar:1.0.2"
 }
 ```
 
