@@ -88,7 +88,7 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
         strokeCap = barStrokeCap.getPaintStrokeCap()
         isAntiAlias = true
         if (progressGradientColorsArray.size > 1 && dashedProgressDrawable.getPaintedSweepAngle() > 0) {
-            val sweepGradientShader = createSweepGradient(startAngle, dashedProgressDrawable.getPaintedSweepAngle(), progressGradientColorsArray, barStrokeCap == BarStrokeCap.ROUND)
+            val sweepGradientShader = createSweepGradient(barWidth, startAngle, dashedProgressDrawable.getPaintedSweepAngle(), progressGradientColorsArray, barStrokeCap == BarStrokeCap.ROUND)
             shader = sweepGradientShader
         } else {
             shader = null
@@ -119,7 +119,7 @@ class ProgressView(context: Context) : ProgressViewBase(context) {
             strokeCap = barStrokeCap.getPaintStrokeCap()
             isAntiAlias = true
             if (progressGradientColorsArray.size > 1 && dashedProgressDrawable.getPaintedSweepAngle() > 0) {
-                val sweepGradientShader = createSweepGradient(startAngle, dashedProgressDrawable.getPaintedSweepAngle(), progressGradientColorsArray, barStrokeCap == BarStrokeCap.ROUND)
+                val sweepGradientShader = createSweepGradient(barWidth, startAngle, dashedProgressDrawable.getPaintedSweepAngle(), progressGradientColorsArray, barStrokeCap == BarStrokeCap.ROUND)
                 shader = sweepGradientShader
             } else {
                 shader = null

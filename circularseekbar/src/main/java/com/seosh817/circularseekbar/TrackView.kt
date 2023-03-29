@@ -56,7 +56,7 @@ class TrackView(context: Context) : ProgressViewBase(context) {
         strokeCap = barStrokeCap.getPaintStrokeCap()
         isAntiAlias = true
         if (trackGradientColorsArray.size > 1) {
-            val sweepGradientShader = createSweepGradient(startAngle, dashedTrackDrawable.getPaintedSweepAngle(), trackGradientColorsArray, barStrokeCap == BarStrokeCap.ROUND)
+            val sweepGradientShader = createSweepGradient(barWidth, startAngle, dashedTrackDrawable.getPaintedSweepAngle(), trackGradientColorsArray, barStrokeCap == BarStrokeCap.ROUND)
             shader = sweepGradientShader
         } else {
             shader = null
@@ -85,7 +85,7 @@ class TrackView(context: Context) : ProgressViewBase(context) {
             strokeCap = barStrokeCap.getPaintStrokeCap()
             isAntiAlias = true
             if (trackGradientColorsArray.size > 1) {
-                val sweepGradientShader = createSweepGradient(startAngle, dashedTrackDrawable.getPaintedSweepAngle(), trackGradientColorsArray, barStrokeCap == BarStrokeCap.ROUND)
+                val sweepGradientShader = createSweepGradient(barWidth, startAngle, dashedTrackDrawable.getPaintedSweepAngle(), trackGradientColorsArray, barStrokeCap == BarStrokeCap.ROUND)
                 shader = sweepGradientShader
             } else {
                 shader = null
