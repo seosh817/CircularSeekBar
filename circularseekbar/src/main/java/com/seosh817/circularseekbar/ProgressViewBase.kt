@@ -6,6 +6,7 @@ import android.graphics.PointF
 import android.graphics.SweepGradient
 import android.view.View
 import com.seosh817.circularseekbar.Constants.START_ANGLE_OFFSET
+import com.seosh817.circularseekbar.utils.MathUtils
 
 abstract class ProgressViewBase(context: Context): View(context) {
 
@@ -14,11 +15,11 @@ abstract class ProgressViewBase(context: Context): View(context) {
 
     abstract fun updateView()
 
-    fun createSweepGradient(startAngle: Float, sweepAngle: Float, gradientArray: IntArray, rounded: Boolean): SweepGradient {
+    fun createSweepGradient(barWidth: Float, startAngle: Float, sweepAngle: Float, gradientArray: IntArray, rounded: Boolean): SweepGradient {
         val shader = SweepGradient(centerPosition.x, centerPosition.y, gradientArray, getGradientPositions(sweepAngle, gradientArray))
         val gradientRotationMatrix = Matrix()
         if (rounded) {
-            gradientRotationMatrix.preRotate(START_ANGLE_OFFSET + startAngle - 2, centerPosition.x, centerPosition.y)
+            gradientRotationMatrix.preRotate(START_ANGLE_OFFSET + startAngle - MathUtils.radiansToDegrees((barWidth / 2) / radiusPx), centerPosition.x, centerPosition.y)
         } else {
             gradientRotationMatrix.preRotate(START_ANGLE_OFFSET + startAngle, centerPosition.x, centerPosition.y)
         }
